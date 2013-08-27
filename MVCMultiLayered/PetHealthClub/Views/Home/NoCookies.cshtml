@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+<div class="container">
+    <div class="content">
+        <div id="rewardContainer">
+            
+            <div class="midslider2" style="width:100%; float:left;">
+                <div style="width: 100%; float:left; text-align: center;">
+                    <p class="ptScript" style="padding:25px 0 15px 0; width:100%; text-align: center; font-size: 36px; float:left;">Hi! We need you to enable 3rd party cookies.</p>
+                    <p style="margin-top:-15px; float:left; width:100%;"><i>This because of how Facebook handles applications that involve you logging in and creating an account.</i></p>
+                </div>
+
+                <ul style="clear: both; padding-top: 30px;">
+                    <li>
+                        <b>Internet Explorer 7 on Windows</b>
+                        <ul>
+                            <li>Click the "Tools" menu Click "Internet Options" Select the "Privacy" tab</li>
+                            <li>To enable third-party cookies for all sites Click "Advanced" Select "Override automatic cookie handling" Select the "Accept" button under "Third-party Cookies" and click "OK"</li>
+                        </ul>
+                    </li>
+                    <li style="padding-top: 10px;">
+                        <b>Safari on Apple OS X</b>
+                        <ul>
+                            <li>Click the "Tools" menu Click "Options..."</li>
+                            <li>Select the "Privacy" menu Make sure "Keep until" is set to "they expire"</li>
+                            <li>Make sure "Accept third-party cookies" is checked.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="@Url.Content("~/")">Back to Pet Health Club</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿ <div id="myModal" class="ribbon_modal">
+        <a class="close-reveal-modal"><img src="@Url.Content("~/Content/images/close.png")" /></a>
+        
+        <div class="modal_not_loading" style="display:inline;">
+
+            <div class="left_column">
+                <img src="@Url.Content("~/Content/images/user-img.png")" id="petimage" />
+                <img src="@Url.Content("~/Content/images/coin1.png")"  id="petbadge" />
+                <div id="divbadgename">Badge Name</div>
+            </div>
+        
+            <div class="modal_content">
+                <h1 id="divchname">title</h1>
+                <h2 id="divchsubname"></h2>
+
+                <div id="divpetname">Challenge Completed:</div>
+                <div id="divchdate"></div>
+
+                <div id="divdesc"></div>
+                <div style="width: 100%; text-align: center; font-size: 18px;">
+                    
+                    <div class="contest_reward">
+                        <div class="dlReward">
+                            <a href="@Url.Content("~/PetUser/User/RedeemReward/")">Complete prize entry</a>
+                        </div>
+                    </div>
+                    
+                    <div class="social_icons" style="margin: 0px auto; width: 180px" id="divsicon">
+                        <a class="fb" id="fblink"></a>
+                        <a class="tw" ></a>
+                        <a class="pin"></a>
+                    </div>
+
+                    <div id="share_badge">
+                         <div class="badge_icon"><img src="@Url.Content("~/Content/Uploads/Challenges/small_share_badge.png")" width="45" height="45" style="vertical-align:bottom"  /></div>
+                         <div class="description regularFont">Congrats! You've earned the Share The Wellness badge!</div>
+                    </div>
+
+                    <div id="share_badge_all">
+                         <div class="badge_icon"><img src="@Url.Content("~/Content/Uploads/Challenges/super_share_badge.png")" width="45" height="45" style="vertical-align:bottom"  /></div>
+                         <div class="description regularFont">Congrats! You've earned the Super Sharer badge!</div>
+                    </div>
+                </div>
+                <a href="#" id="hdfebid" style="display:none"></a>
+            </div>
+        </div>
+    </div>
+
+        <input type="hidden" name="first_share_badge" id="first_share_badge" value="0" />
+        <input type="hidden" name="super_share_badge" id="super_share_badge" value="0" />

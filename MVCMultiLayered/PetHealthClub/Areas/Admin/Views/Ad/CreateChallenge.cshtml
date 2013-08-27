@@ -1,0 +1,249 @@
+﻿@model PHCDto.DTO.ChallengeDTO
+@{
+    ViewBag.Title = "CreateChallenge";
+    Layout = "~/Views/Shared/_AdminMaster.cshtml";
+}
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+
+<div style="width: 100%; float: left; margin-top: 50px">
+
+    <div style="width: 100%; float: left; font-size: 16px; font-weight: bold; color: #111; padding-left: 30px">Create Challenge</div>
+     
+    <div style="float: left; width: 100%; margin-top: 10px">
+        @using (Html.BeginForm("CreateChallenge", "Ad", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true)
+
+            <script type="text/javascript">
+
+                function readdog(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#Dogimg').attr('src', e.target.result);
+                            $('#txtdog').val(e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                function readcat(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#catImg').attr('src', e.target.result);
+                            $('#txtcat').val(e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                function ChallengeDetails() {
+
+                    var dt = document.getElementById("DOB").value;
+                    if (dt != "") {
+
+                        $.get('../Ad/returnJsonData?dt=' + dt, function (data) {
+
+                            if (data.ChallengeName == null) {
+                                document.getElementById("txtcname").disabled = false;
+                                document.getElementById("txtcname").value = "";
+                            }
+                            else {
+                                document.getElementById("txtcname").disabled = true;
+                                document.getElementById("txtcname").value = data.ChallengeName;
+                            }
+
+                            if (data.Description == null) {
+                                document.getElementById("txtcdes").disabled = false;
+                                document.getElementById("txtcdes").value = "";
+                            }
+                            else {
+                                document.getElementById("txtcdes").disabled = true;
+                                document.getElementById("txtcdes").value = data.Description;
+                            }
+
+                            if (data.BID == null) {
+                                document.getElementById("badgelist").disabled = false;
+                                document.getElementById("badgelist").value = "";
+                            }
+                            else {
+                                document.getElementById("badgelist").disabled = true;
+                                document.getElementById("badgelist").value = data.BID;
+                            }
+
+                            if (data.catchImg == null) {
+                                document.getElementById("catImg").style.cursor = "pointer";
+                                $("#catImg").attr('src', "../../Content/images/Noimage1.jpg");
+                            }
+                            else {
+                                document.getElementById("catImg").click = true;
+                                $("#catImg").attr('src', "../../Content/Uploads/Challenges/" + data.catchImg);
+                            }
+
+                            if (data.dogchImg == null) {
+                                $("#Dogimg").attr('src', "../../Content/images/Noimage1.jpg");
+                                document.getElementById("goto").style.display = "block";
+                            }
+                            else {
+                                $("#Dogimg").attr('src', "../../Content/Uploads/Challenges/" + data.dogchImg);
+                                document.getElementById("goto").style.display = "none";
+                            }
+                        });
+                    }
+                }
+
+                function checkChallengename() {
+
+                    var Chalengename = document.getElementById("txtcname").value;
+                    if (Chalengename != "") {
+
+                        $.get('../Ad/checkchallengename?cname=' + Chalengename, function (data) {
+
+
+                            if (data == 1) {
+                                document.getElementById("chkcname").style.color = "Red";
+                                document.getElementById("chkcname").innerHTML = "Challenge name not available.. ";
+
+                            }
+                            if (data == 0) {
+                                document.getElementById("chkcname").style.color = "Green";
+                                document.getElementById("chkcname").innerHTML = "Challenge name  available.. ";
+                            }
+
+                        });
+                    }
+
+                }
+
+            </script>
+    
+            <div style="display: block; margin-top: 10px">
+
+                <div class="clr"></div>
+                <div class="divblock">
+                    <div class="divblock-left">Challenge Week:</div>
+                    <div class="divblock-right">
+                        @Html.TextBoxFor(model => model.ChcreatedDate, new { id = "DOB", @Class = "inp-round1", onchange = "ChallengeDetails()" })
+                        <script>
+                            $(function () {
+                                $("#DOB").datepicker({
+                                    changeMonth: true,
+                                    changeYear: true,
+                                    yearRange: "-30:+0",
+                                    beforeShowDay: enableMonday
+
+                                });
+                                function enableMonday(date) {
+                                    var day = date.getDay();
+                                    return [(day == 1), ''];
+                                }
+                            });
+                        </script>
+
+                        @Html.ValidationMessageFor(model => model.ChcreatedDate)
+                    </div>
+                </div>
+                <div class="clr"></div>
+                <div class="divblock">
+                    <div class="divblock-left">Challenge name:</div>
+                    <div class="divblock-right">
+                        @Html.TextBoxFor(model => model.ChallengeName, new { @Style = "width:145px", @class = "inp-round1", id = "txtcname", OnKeyup = "checkChallengename()", OnChange = "checkChallengename()" })
+                        @Html.ValidationMessageFor(model => model.ChallengeName)
+                        <span id="chkcname" style="margin-left: 5px; padding-top: -10px; font-weight: bold"></span>
+                    </div>
+                </div>
+
+
+                    <div class="clr"></div>
+                    
+
+                <div class="divblock">
+                    <div class="divblock-left">Badge Name:</div>
+                    <div class="divblock-right">
+                        @Html.DropDownListFor(item => item.BID, new SelectList(((System.Collections.IEnumerable)ViewData["bagdelist"]), "BID", "Description"), "--Select--", new { Style = "width:175px", @Class = "inp-round1", id = "badgelist" })
+                        @Html.ValidationMessageFor(model => model.BID)
+                    </div>
+                </div>
+                <div class="clr"></div>
+
+                <div class="divblock">
+                    <div class="divblock-left">Dog Challenge Image:</div>
+                    <div class="divblock-right">
+                        <img id="Dogimg" name="Dogimg" src="@Url.Content("~/Content/images/Noimage1.jpg")"  width="100" height="100" title="Click to upload Photo"  />
+                        @Html.TextBoxFor(model => model.dogchImg, new { @id = "txtdog", hidden = true })
+                        @Html.ValidationMessageFor(model => model.dogchImg)
+
+                        <input type="file" name="updog" id="updog" size="8" style="display: none" onchange="readdog(this);" />
+
+                        <script>
+                            $("#Dogimg").click(function () {
+                                $("#updog").trigger('click');
+                            });
+                        </script>
+
+                    </div>
+                </div>
+                <div class="clr"></div>
+                <div class="divblock">
+                        <div class="divblock-left">Dog's Description:</div>
+                        <div class="divblock-right">
+                            @Html.TextAreaFor(model => model.Description, new { @Style = "width:175px", @class = "inp-roundmulti", @id = "txtcdes" })
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                    </div>
+                <div class="clr"></div>
+                <div class="divblock">
+                    <div class="divblock-left">Cat Challenge Image:</div>
+                    <div class="divblock-right">
+                        <img id="catImg" name="catImg" src="@Url.Content("~/Content/images/Noimage1.jpg")"  width="100" height="100" title="Click to upload Photo"  />
+                        @Html.TextBoxFor(model => model.catchImg, new { @id = "txtcat", hidden = true })
+                        @Html.ValidationMessageFor(model => model.catchImg)
+
+                        <input type="file" name="upcat" id="upcat" size="8" style="display: none" onchange="readcat(this);" />
+
+                        <script>
+                            $("#catImg").click(function () {
+                                $("#upcat").trigger('click');
+                            });
+                        </script>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="clr"></div>
+
+                <div class="divblock">
+                        <div class="divblock-left">Cat's Description:</div>
+                        <div class="divblock-right">
+                            @Html.TextAreaFor(model => model.CatDescription, new { @Style = "width:175px", @class = "inp-roundmulti", @id = "txtcdes" })
+                            @Html.ValidationMessageFor(model => model.CatDescription)
+                        </div>
+                    </div>
+                <div class="clr"></div>
+
+
+                <div class="divblock">
+                    <div class="divblock-left">&nbsp;</div>
+                    <div class="divblock-right">
+                        <input type="submit" value="Save" class="button orange small" id="goto" />
+                    </div>
+                </div>
+                <div class="clr"></div>
+                <div class="clr"></div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿@model PHCDto.DTO.RewardsDTO
+
+@{
+    ViewBag.Title = "EditWall";
+    Layout = "~/Views/Shared/_AdminMaster.cshtml";
+}
+
+<div style="width: 100%; float: left; margin-top: 50px">
+
+
+
+
+    <div style="width: 100%; float: left; font-size: 16px; font-weight: bold; color: #111; padding-left: 30px">Edit Badge</div>
+     
+    <div style="float: left; width: 100%; margin-top: 10px">
+        @using (Html.BeginForm("EditWall", "Ad", FormMethod.Post, new { area = "Admin", enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true)
+
+            <script type="text/javascript">
+                function readbadge(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#badgelogo').attr('src', e.target.result);
+                            $('#txtbadge').val(e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+               
+            </script>
+            
+       
+            
+            <div class="divblock">
+                <div class="divblock-left">Title:</div>
+                <div class="divblock-right">
+                    @Html.HiddenFor(model => model.WID)
+                    @Html.TextBoxFor(model => model.Title, new { @Style = "width:145px", @class = "inp-round1", id = "txtbadgechk"})
+                    @Html.ValidationMessageFor(model => model.Title)
+                    <span id="chkbname" style="margin-left: 5px; padding-top: -10px; font-weight: bold"></span>
+
+                    @Html.HiddenFor(model => model.Title)
+
+
+
+                </div>
+            </div>
+            
+            
+            <div class="divblock">
+                <div class="divblock-left">Badge Image:</div>
+                <div class="divblock-right">
+
+                    <img id="badgelogo" name="PetImg" src="@Url.Content("~/Content/Uploads/Challenges/" + @Model.WallImage)" width="100" height="100" style="cursor:pointer" title="Click to upload Photo"  />
+                    @Html.TextBoxFor(model => model.WallImage, new { @id = "txtbadge", hidden = true })
+                    @Html.ValidationMessageFor(model => model.WallImage)
+
+                    <input type="file" name="upbadge" id="upbadge" size="8" style="display: none" onchange="readbadge(this);" />
+
+                    <script>
+                        $("#badgelogo").click(function () {
+                            $("#upbadge").trigger('click');
+                        });
+                    </script>
+
+
+
+
+                </div>
+
+
+
+
+
+
+            </div>
+            
+           
+            <div class="clr"></div>
+            <div class="divblock">
+                <div class="divblock-left">&nbsp;</div>
+                <div class="divblock-right">
+                    <input type="submit" value="Update" class="button orange small" id="goto" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

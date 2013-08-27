@@ -1,0 +1,516 @@
+﻿@model PHCDto.DTO.ProfileDTO
+@{
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+<!DOCTYPE html>
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Pet Health Club</title>
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+    <script src="@Url.Content("~/Content/js/slides.min.jquery.js")"></script>
+    <script src="@Url.Content("~/Content/js/popup.js")"></script>
+    @*  <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>*@
+
+
+    <script type="text/javascript">
+
+
+        $(function () {
+
+           
+            // Set starting slide to 1
+            var startSlide = 1;
+            // Get slide number if it exists
+            if (window.location.hash) {
+                startSlide = window.location.hash.replace('#', '');
+            }
+            // Initialize Slides
+            $('#slides').slides({
+                preload: false,
+                preloadImage: 'images/loading.gif',
+                generatePagination: true,
+                play: 0000,
+                pause: 2500,
+                hoverPause: true,
+                // Get the starting slide
+                start: startSlide,
+                animationComplete: function (current) {
+                    // Set the slide number as a hash
+                    window.location.hash = '#' + current;
+                }
+            });
+            //var $j = jQuery.noConflict();
+            $(window).load(function () {
+                $('#carousel123').bxCarousel({
+                    display_num: 6,
+                    move: 1,
+                    prev_image: '../images/prev.png',
+                    next_image: '../images/next.png'
+                });
+            });
+
+
+            // var $j = jQuery.noConflict();
+            $(document).on('click', "a#popupContactClose", function () {
+               
+                if (popupStatus == 1) {
+                   
+                    $("#backgroundPopup").fadeOut("slow");
+                    $("#popupContact").fadeOut("slow");
+                    popupStatus = 0;
+                }
+            });
+        });
+    </script>
+
+   
+
+
+    <style>
+        #popupContact
+        {
+            display: none;
+            position: fixed;
+            _position: absolute; /* hack for internet explorer 6*/
+            width: 814px;
+            min-height: 454px;
+            background: transparent;
+            z-index: 9999;
+            padding: 0px;
+            font-size: 13px;
+            border-radius: 10px;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+        }
+
+        #popupContactClose
+        {
+            font-size: 14px;
+            line-height: 14px;
+            right: 2px;
+            top: 40px;
+            position: absolute;
+            color: #6fa5fd;
+            font-weight: 700;
+            display: block;
+        }
+
+        #button
+        {
+            text-align: center;
+            margin: 100px;
+        }
+
+        #backgroundPopup
+        {
+            display: none;
+            position: fixed;
+            _position: absolute; /* hack for internet explorer 6*/
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: #000000;
+            z-index: 1;
+        }
+
+        .logon-text
+        {
+            float: right;
+            font-size: 14px;
+            margin-right: 5px;
+            margin-top: 8px;
+        }
+
+            .logon-text a
+            {
+                color: #333;
+                text-decoration: none;
+            }
+
+        input[type=text]:focus, input[type=password]:focus:focus
+        {
+            outline: none;
+            border-color: rgba(82,168,236,.75)!important;
+            box-shadow: 0 0 8px rgba(82,168,236,.5);
+            -moz-box-shadow: 0 0 8px rgba(82,168,236,.5);
+            -webkit-box-shadow: 0 0 8px rgba(82,168,236,.5);
+        }
+
+        .login123
+        {
+            width: 814px;
+            min-height: 454px;
+            margin: 0 auto;
+            margin-top: 50px;
+            background-image: url(~/../../../Content/images/pop.png);
+        }
+
+        .log-bg
+        {
+            float: right;
+            width: 814px;
+            height: 65px;
+        }
+
+        .block1
+        {
+            float: left;
+            width: 340px;
+            height: auto;
+            margin-top: 10px;
+            margin-left: 25px;
+        }
+
+        .user
+        {
+            float: left;
+            font-size: 14px;
+            color: #069;
+        }
+
+        .user1
+        {
+            float: left;
+            font-size: 14px;
+            margin-top: 4px;
+            color: #069;
+        }
+
+            .user1 a
+            {
+                color: #069;
+                text-decoration: none;
+            }
+
+                .user1 a:hover
+                {
+                    color: #000;
+                    text-decoration: none;
+                }
+
+        .inp1
+        {
+            border: 1px solid #999;
+            width: 270px;
+            height: 22px;
+            padding-left: 5px;
+        }
+
+        .log-tex
+        {
+            float: left;
+            font-size: 24px;
+            margin-left: 25px;
+            margin-top: 30px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="content">
+            <div class="clr">&nbsp; </div>
+            <div class="midslider">
+                <div id="container">
+                    <div id="example">
+                        <div id="slides">
+                            <div class="slides_container">
+
+                                 @if(@Model.pch1!=0)
+                                {
+                                <div class="slide" style="background:url(@Url.Content("~/Content/images/cat.png)")">
+                                    <a href="@Url.Content("~/PetUser/User/PetChallenge?id="+@Model.pch1)">
+                                        <div class="left-cslide">
+                                            <div class="head-tex">@Model.pchname1 </div>
+                                           
+                                            <p class="white-t">Take the challenge </p>
+
+
+                                        </div>
+                                    </a>
+
+                                </div>
+                                 }
+
+                                  @if(@Model.pch2!=0)
+                                {
+                                <div class="slide" style="background:url(@Url.Content("~/Content/images/cat1.png)")">
+                                    <a href="@Url.Content("~/PetUser/User/PetChallenge?id="+@Model.pch2)">
+                                        <div class="left-cslide">
+                                            <div class="head-tex">@Model.pchname2 </div>
+                                            
+                                            <p class="white-t">Take the challenge </p>
+
+
+                                        </div>
+                                    </a>
+
+                                </div>
+                                  }
+                                   
+                                  @if(@Model.pch3!=0)
+                                {   
+                                <div class="slide" style="background:url(@Url.Content("~/Content/images/cat2.png)")">
+                                    <a href="@Url.Content("~/PetUser/User/PetChallenge?id="+@Model.pch3)">
+                                        <div class="left-cslide">
+                                            <div class="head-tex">@Model.pchname3 </div>
+                                           
+                                            <p class="white-t">Take the challenge </p>
+
+
+                                        </div>
+                                    </a>
+
+                                </div>
+                                  }
+                                   
+                                  @if(@Model.pch4!=0)
+                                {   
+                                <div class="slide" style="background:url(@Url.Content("~/Content/images/cat3.png)")">
+                                    <a href="@Url.Content("~/PetUser/User/PetChallenge?id="+@Model.pch4)">
+                                        <div class="left-cslide">
+                                            <div class="head-tex">@Model.pchname4</div>
+                                            
+                                            <p class="white-t">Take the challenge </p>
+
+
+                                        </div>
+                                    </a>
+
+                                </div>
+                                  }
+                                   
+                                
+                                  @if(@Model.pch5!=0)
+                                {   
+                                <div class="slide" style="background:url(@Url.Content("~/Content/images/cat4.png)")">
+                                    <a href="@Url.Content("~/PetUser/User/PetChallenge?id="+@Model.pch5)">
+                                        <div class="left-cslide">
+                                            <div class="head-tex">@Model.pchname5 </div>
+                                            
+                                            <p class="white-t">Take the challenge </p>
+
+
+                                        </div>
+                                    </a>
+
+                                </div>
+                                  }
+                                   
+                                  @if(@Model.pch6!=0)
+                                {   
+                                <div class="slide" style="background:url(@Url.Content("~/Content/images/cat5.png)")">
+                                    <a href="@Url.Content("~/PetUser/User/PetChallenge?id="+@Model.pch6)">
+                                        <div class="left-cslide">
+                                            <div class="head-tex">@Model.pchname6 </div>
+                                           
+                                            <p class="white-t">Take the challenge </p>
+
+
+                                        </div>
+                                    </a>
+
+                                </div>
+
+                                  }
+                                      
+                              
+                            </div>
+                            <a href="#" class="prev">
+                                <img src="@Url.Content("~/Content/images/arrow-prev.png")" width="50" height="50" alt="Arrow Prev" style="border:0px;"></a>
+                            <a href="#" class="next">
+                                <img src="@Url.Content("~/Content/images/arrow-next.png")" width="50" height="50" alt="Arrow Next" style="border:0px;"></a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="clr1">&nbsp; </div>
+            <!--<div class="big-button"><a href="#"><img src="images/big_b.png" style="border:0px;" />  </a></div>-->
+            <div style="width: 160px; margin: 0 auto; height: 33px; position: relative; top: -150px; left: -8px">
+                <span style="position: relative; top: 90px; left: 70px; font-weight: bold; font-size: 40px; color: #fff">@Model.badgecount
+                </span>
+                <a href="@Url.Content("~/PetUser/User/BadgesList")">
+                    <img src="@Url.Content("~/Content/images/round.png")" /></a>
+            </div>
+            <div style="width: 710px; margin: 0 auto">
+                <img src="@Url.Content("~/Content/images/header_bottom.png")" usemap="#Map" border="0" />
+                <map name="Map" id="Map">
+                    <area shape="rect" coords="4,6,287,144" href="@Url.Content("~/PetUser/User/PetProfile")" />
+                    <area shape="rect" coords="286,44,348,143" href="@Url.Content("~/PetUser/User/PetProfile")" />
+
+                    <area shape="rect" coords="412,6,699,144" href="@Url.Content("~/PetUser/User/Rewards")" />
+                    <area shape="rect" coords="351,44,413,142" href="@Url.Content("~/PetUser/User/Rewards")" />
+                </map>
+            </div>
+
+            <div class="carousel123">
+                <script>
+
+                    function chkedbuttonfriend(id, value) {
+
+                        var test = document.getElementById("h/" + id).value;
+                        if (test == "") {
+                            document.getElementById(id).style.border = "5px solid #111";
+                            $.ajax({
+                                type: "POST",
+                                url: "../../User/Addinvitation/" + id,
+                                success: function (data) {
+                                    alert(data);
+                                },
+                                dataType: "json",
+                                traditional: true
+                            });
+
+                            document.getElementById("h/" + id).value = 1;
+                        }
+                        else {
+                            document.getElementById(id).style.border = "none";
+                            //var test = document.getElementById("h/" + id).value;
+                            //alert(test);
+                            $.ajax({
+                                type: "POST",
+                                url: "../../User/Removeinvitation/" + id,
+                                success: function (data) {
+                                    alert(data);
+                                },
+                                dataType: "json",
+                                traditional: true
+                            });
+                        }
+                    }
+
+
+                    function gotosend() {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "../../User/Send/",
+                            success: function (data) {
+                                alert(data);
+                            },
+                            dataType: "json",
+                            traditional: true
+                        });
+                        alert('Invitation Sent Successfully..!');
+
+                    }
+
+
+                </script>
+
+
+
+                <ul id="carousel123">
+                    @foreach (var friend in Model.friendsListing)
+                    {
+                        <li>
+                            <div style="width: 70px">
+
+                                <button type="button" id="@friend.id"  title="@friend.name" onclick="chkedbuttonfriend(this.id,this.value)" value="0" style="width:60px;cursor:pointer">
+                                    <a href="" style="width: 100px" title="@friend.name">
+                                        <img src="https://graph.facebook.com/@friend.id/picture" alt="alt" style="width:46px; height:45px; float:left" id="imgfb"  /></a>
+
+                                </button>
+                                <input type="hidden" id="h/@friend.id" />
+                            </div>
+                        </li>      
+                    }
+                </ul>
+
+
+
+            </div>
+            <div style="float: left; margin-top: 45px">
+                <a href="#" onclick="gotosend()">
+                    <img src="@Url.Content("~/Content/images/invite_friends.png")" alt="alt"  /></a>
+
+            </div>
+
+        </div>
+
+        <div style="position: absolute; top: 34.5px; left: 416.5px; display: none;" id="popupContact">
+            <a id="popupContactClose">
+                <img src="@Url.Content("~/Content/images/close.png")"></a>
+            <div class="login123">
+                <div class="log-bg">
+
+                    <div style="width: 60%; float: right; text-align: center; padding: 5px">
+                        <h1>Congrats</h1>
+                        <h1>You earned your 1st badge!</h1>
+                        <div style="float: left; width: 100%; text-align: center; min-height: 130px; padding: 0 10px">
+                            Look at you go! Now you can complete your profile and tackle<br />
+                            this week's challenge. You'll earn more badges with each<br />
+                            successful challenge, which means you can collect<br />
+                            even more rewards!
+
+                        </div>
+
+
+
+                        <div style="float: left; width: 100%; text-align: center">
+                            <a href="@Url.Content("~/PetUser/User/PetProfile")">
+                                <img src="@Url.Content("~/Content/images/profile.png")" width="335" height="53" /></a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div style="height: 629px; opacity: 0.7; display: none;" id="backgroundPopup"></div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+<script src="@Url.Content("~/Content/js/tiny.js")"></script>
+
+
+
+</html>
+

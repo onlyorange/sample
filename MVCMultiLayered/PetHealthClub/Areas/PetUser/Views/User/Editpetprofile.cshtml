@@ -1,0 +1,356 @@
+﻿@model PHCDto.DTO.ProfileDTO
+
+@{
+    ViewBag.Title = "Editpetprofile";
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+@section head {
+
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+
+    <style type="text/css">
+        .sizeXY
+        {
+            width: 320px;
+            float: left;
+        }
+        #slides {
+            width: 807px !important;
+            height:379px !important;
+        }
+        #profileContainer {
+        
+        }
+        .slides_container {
+            width: 807px !important;
+            height: 419px !important;
+        }
+        .midslider {
+            height: 399px !important;
+        }
+        .right-c {
+            margin-top: 15px;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#PetImg').attr('src', e.target.result);
+                    $('#pimg1').val(e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+}
+
+
+
+
+
+
+
+    @using (Html.BeginForm("Editpetprofile", "User", FormMethod.Post, new { area = "PetUser", enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true) 
+        <div class="content">
+
+
+            <div style="float: left; margin-left: 100px;">
+                <a href="@Url.Content("~/PetUser/User/BadgePage1")" class="back_to_dashboard" style="">
+                    
+                </a>
+            </div>
+
+
+            <div class="midslider">
+                <div id="profileContainer">
+                    <div>
+                        <div>
+                            <div class="slides_container">
+
+                                <div class="slide" id="membership">
+                                    <div class="left-ccc">
+                                        <p class="head-texcc">
+
+                                          <img id="PetImg" src="@Url.Content("~/Content/Uploads/" + @Model.PetImage)" width="203"  />
+                                            
+                                            @Html.TextBoxFor(model => model.pimg, new { @id = "pimg1", hidden = true })
+                                            @Html.ValidationMessageFor(model => model.PetImage)
+                                            <br />
+                                            <div id="upfile1" class="upload_photo" style="cursor:pointer; float:left; margin-left:15px;"></div>
+                                            <div class="upload_text" style="display:none;">Upload new photo:</div>
+                                            <input type="file" name="Uploadfile" id="Uploadfile" size="8" style="display: none" onchange="readURL(this);" />
+
+                                            @Html.ValidationMessageFor(model => model.pimg)
+                                            @Html.ValidationMessageFor(model => model.PetImage)
+                                        </p>
+                                        <p class="white-tcc">
+                                        </p>
+                                        <p class="white-t">
+                                        </p>
+                                        <script>
+                                            $("#upfile1").click(function () {
+                                                $("#Uploadfile").trigger('click');
+                                            });
+
+                                            var BrowserDetect = {
+                                                init: function () {
+                                                    this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+                                                    this.version = this.searchVersion(navigator.userAgent)
+                                                        || this.searchVersion(navigator.appVersion)
+                                                        || "an unknown version";
+                                                    this.OS = this.searchString(this.dataOS) || "an unknown OS";
+                                                    console.log(this.browser + " " + this.version + " " + this.OS);
+                                                    if (this.browser == "Safari") {
+                                                        $(".upload_text, #Uploadfile").css("display", "block");
+                                                        $(".upload_photo").css("display", "none");
+                                                    }
+                                                },
+                                                searchString: function (data) {
+                                                    for (var i = 0; i < data.length; i++) {
+                                                        var dataString = data[i].string;
+                                                        var dataProp = data[i].prop;
+                                                        this.versionSearchString = data[i].versionSearch || data[i].identity;
+                                                        if (dataString) {
+                                                            if (dataString.indexOf(data[i].subString) != -1)
+                                                                return data[i].identity;
+                                                        }
+                                                        else if (dataProp)
+                                                            return data[i].identity;
+                                                    }
+                                                },
+                                                searchVersion: function (dataString) {
+                                                    var index = dataString.indexOf(this.versionSearchString);
+                                                    if (index == -1) return;
+                                                    return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
+                                                },
+                                                dataBrowser: [
+                                                    {
+                                                        string: navigator.userAgent,
+                                                        subString: "Chrome",
+                                                        identity: "Chrome"
+                                                    }, {
+                                                        string: navigator.vendor,
+                                                        subString: "Apple",
+                                                        identity: "Safari",
+                                                        versionSearch: "Version"
+                                                    }, {
+                                                        string: navigator.userAgent,
+                                                        subString: "MSIE",
+                                                        identity: "Explorer",
+                                                        versionSearch: "MSIE"
+                                                    }
+                                                  
+                                                ],
+                                                dataOS: [
+                                                    {
+                                                        string: navigator.platform,
+                                                        subString: "Win",
+                                                        identity: "Windows"
+                                                    },
+                                                    {
+                                                        string: navigator.platform,
+                                                        subString: "Mac",
+                                                        identity: "Mac"
+                                                    }
+                                                ]
+
+                                            };
+                                            BrowserDetect.init();
+                                            
+                                        </script>
+                                    </div>
+
+                                    <div class="right-c">
+                                        <div style="float: left; width: 550px;">
+                                            <div style="float: left; width: 370px">
+                                                <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        Name:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left;">
+                                                        @Html.TextBoxFor(model => model.PetName, new { @id = "txtpname", @Class = "inp-round1 ptScript membershipInput" })
+                                                        @Html.ValidationMessageFor(model => model.PetName)
+                                                        @Html.HiddenFor(model => model.PID)
+                                                    </div>
+                                                </div>
+
+                                                <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        From:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left">
+                                                        @Html.TextBoxFor(model => model.Location, new { @Class = "inp-round1 ptScript membershipInput" })
+                                                        @Html.ValidationMessageFor(model => model.Location)
+                                                    </div>
+                                                </div>
+
+                                                 <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        Date of Birth:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left">
+                                                        @Html.TextBoxFor(model => model.DOBDate, new { id = "DOB", @Class = "inp-round1 ptScript membershipInput", onkeypress="return false;" })
+                                                        <script>
+                                                            $(function () {
+                                                                $("#DOB").datepicker({
+                                                                    changeMonth: true,
+                                                                    changeYear: true,
+                                                                    yearRange: "-30:+0"
+
+                                                                });
+                                                            });
+                                                        </script>
+
+                                                        @Html.ValidationMessageFor(model => model.DOBDate)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="float: right; width: 180px">
+                                                <div id="basic1" style="padding:0; border: 0px; float:left; margin-right:10px;" onclick="chkdog()">
+                                                    <img src="@Url.Content("~/Content/images/small_dog_1.png")" id="imgdog"   /></div>
+                                                <div id="advanced1" style="padding:0; border: 0px;" onclick="chkcat()">
+                                                    <img src="@Url.Content("~/Content/images/small_dog_2.png")" id="imgcat"  /></div>
+                                                <script type="text/javascript">
+                                                    window.onload = function () {
+
+                                                        if (document.getElementById('lblpcid').value == 1) {
+                                                            document.getElementById('podog').checked = true;
+                                                            document.getElementById('pocat').checked = false;
+                                                            document.getElementById("imgdog").style.opacity = "25.0";
+                                                            document.getElementById("imgdog").style.filter = "alpha(opacity=250)";
+                                                            document.getElementById("imgcat").style.opacity = "0.4";
+                                                            document.getElementById("imgcat").style.filter = "alpha(opacity=40)";
+                                                            $("#basic1").unbind('click');
+                                                            $("#advanced1").unbind('click');
+                                                        }
+
+                                                        else if (document.getElementById('lblpcid').value == 2) {
+                                                            document.getElementById('podog').checked = false;
+                                                            document.getElementById('pocat').checked = true;
+                                                            document.getElementById("imgcat").style.opacity = "25.0";
+                                                            document.getElementById("imgcat").style.filter = "alpha(opacity=250)";
+                                                            document.getElementById("imgdog").style.opacity = "0.4";
+                                                            document.getElementById("imgdog").style.filter = "alpha(opacity=40)";
+                                                            $("#basic1").unbind('click');
+                                                            $("#advanced1").unbind('click');
+                                                        }
+
+                                                        else {
+                                                            $("#basic1").bind('click', function () {
+
+                                                                chkdog();
+                                                            });
+                                                            $("#advanced1").bind('click', function () {
+                                                                chkcat();
+                                                            });
+
+                                                        }
+
+                                                    };
+                                                </script>
+
+                                                <script type="text/javascript">
+
+                                                    function chkdog() {
+
+                                                        document.getElementById("div1").style.display = "none";
+
+                                                        if (document.getElementById("basic1").click) {
+
+                                                            document.getElementById('podog').checked = true;
+                                                            document.getElementById('pocat').checked = false;
+                                                            document.getElementById('lblpcid').value = 1;
+                                                            document.getElementById("imgdog").style.opacity = "25.0";
+                                                            document.getElementById("imgcat").style.opacity = "0.4";
+                                                        }
+                                                    }
+
+                                                    function chkcat() {
+
+                                                        document.getElementById("div1").style.display = "none";
+
+                                                        if (document.getElementById("advanced1").click) {
+
+                                                            document.getElementById('podog').checked = false;
+                                                            document.getElementById('pocat').checked = true;
+                                                            document.getElementById('lblpcid').value = 2;
+                                                            document.getElementById("imgcat").style.opacity = "25.0";
+                                                            document.getElementById("imgdog").style.opacity = "0.4";
+                                                        }
+                                                    }
+
+
+
+                                                </script>
+                                            </div>
+                                            <div id="div2" style="display: none">
+                                                <input id="podog" name="poBoxRadio" type="radio" value="No" />
+                                                <input id="pocat" name="poBoxRadio" type="radio" value="No" />
+                                                @Html.TextBoxFor(model => model.pcid, new { @id = "lblpcid" })
+                                            </div>
+                                        </div>
+
+                                       
+
+                                        <div style="float: left; width: 550px; margin-bottom: 15px">
+                                            <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                About:
+                                            </div>
+                                            <div style="float: left; width: 350px; text-align: left">
+                                                @Html.TextAreaFor(model => model.About, new { @Style = "width:175px", @class = "inp-roundmulti ptScript membershipInput" })
+                                                @Html.ValidationMessageFor(model => model.About)
+                                            </div>
+                                        </div>
+                                        <!-- removal temp
+                                        <div style="float: left; width: 472px; margin-bottom: 10px">
+                                            <div style="float: left; width: 100px; margin-left: 20px">
+                                                Favorite Product:
+                                            </div>
+                                            <div style="float: left; width: 350px; text-align: left">
+                                                @Html.TextBoxFor(model => model.FavProduct, new { @Class = "inp-round1" })
+                                                @Html.ValidationMessageFor(model => model.FavProduct)
+                                            </div>
+
+                                        </div>
+                                        -->
+
+                                        <div style="float: left; width: 550px; margin-bottom: 15px">
+                                            <div style="float: left; width: 100px; margin-left: 20px">
+                                                &nbsp;
+                                            </div>
+                                            <div style="float: right; width: 350px; margin-top:20px; text-align: right">
+
+                                                <button id="submit" name="Update" value="Update" style="border:none; background:none; cursor: pointer">
+                                                    <div class="save" style="float:right;"></div>
+                                                </button>
+                                                
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="clr1">&nbsp; </div>
+
+
+            </div>
+</div>}

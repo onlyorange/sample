@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PHCModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="PHCModelStoreContainer">
+          <EntitySet Name="Badge" EntityType="PHCModel.Store.Badge" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Category" EntityType="PHCModel.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Challenge" EntityType="PHCModel.Store.Challenge" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PetEarnBadge" EntityType="PHCModel.Store.PetEarnBadge" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PetProfile" EntityType="PHCModel.Store.PetProfile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Reward" EntityType="PHCModel.Store.Reward" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="PHCModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Wallpaper" EntityType="PHCModel.Store.Wallpaper" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="Badge">
+          <Key>
+            <PropertyRef Name="BId" />
+          </Key>
+          <Property Name="BId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Badgename" Type="varchar" MaxLength="50" />
+          <Property Name="Badgelogo" Type="varchar(max)" />
+          <Property Name="createdDate" Type="datetime" />
+          <Property Name="CDescription" Type="varchar(max)" />
+          <Property Name="LDescription" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CID" />
+          </Key>
+          <Property Name="CID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Challenge">
+          <Key>
+            <PropertyRef Name="CHID" />
+          </Key>
+          <Property Name="CHID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ChallengeName" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="BadgeID" Type="int" />
+          <Property Name="DogChallengeImage" Type="varchar(max)" />
+          <Property Name="CatChallengeImage" Type="varchar(max)" />
+          <Property Name="ChallengeCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CatDescription" Type="varchar(max)" />
+          <Property Name="Tagline" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="PetEarnBadge">
+          <Key>
+            <PropertyRef Name="EBID" />
+          </Key>
+          <Property Name="EBID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="int" />
+          <Property Name="UID" Type="int" />
+          <Property Name="BID" Type="int" />
+          <Property Name="CID" Type="int" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Image" Type="varchar(max)" />
+          <Property Name="FBStatus" Type="bit" />
+          <Property Name="TwitterStatus" Type="bit" />
+          <Property Name="Pinterest" Type="bit" />
+          <Property Name="ChCompleteDate" Type="datetime" />
+          <Property Name="BadgeEarn" Type="bit" />
+          <Property Name="CatID" Type="int" />
+        </EntityType>
+        <EntityType Name="PetProfile">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="int" />
+          <Property Name="PetName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="PetBreed" Type="varchar" MaxLength="200" />
+          <Property Name="PetCategory" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="PetImage" Type="varchar(max)" />
+          <Property Name="Location" Type="varchar" MaxLength="50" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="About" Type="varchar" MaxLength="500" />
+          <Property Name="FavProduct" Type="varchar" MaxLength="50" />
+          <Property Name="SecondBadge" Type="int" />
+        </EntityType>
+        <EntityType Name="Reward">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="int" />
+          <Property Name="WID" Type="int" />
+          <Property Name="DateUnlocked" Type="date" />
+          <Property Name="DateClaimed" Type="date" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="Link" Type="varchar(max)" />
+          <Property Name="fbid" Type="varchar" MaxLength="50" />
+          <Property Name="acesstoken" Type="varchar(max)" />
+          <Property Name="SharedToFacebookOn" Type="datetime" />
+          <Property Name="SharedToTwitterOn" Type="datetime" />
+          <Property Name="SharedToPinterestOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Wallpaper">
+          <Key>
+            <PropertyRef Name="WID" />
+          </Key>
+          <Property Name="WID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WallImage" Type="varchar(max)" />
+          <Property Name="Title" Type="varchar" MaxLength="200" />
+          <Property Name="BadgesNeeded" Type="int" />
+          <Property Name="DateUnlocks" Type="date" />
+          <Property Name="ICGPin" Type="varchar" MaxLength="10" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PHCModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="PHCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Badges" EntityType="PHCModel.Badge" />
+          <EntitySet Name="Categories" EntityType="PHCModel.Category" />
+          <EntitySet Name="Challenges" EntityType="PHCModel.Challenge" />
+          <EntitySet Name="PetEarnBadges" EntityType="PHCModel.PetEarnBadge" />
+          <EntitySet Name="PetProfiles" EntityType="PHCModel.PetProfile" />
+          <EntitySet Name="Rewards" EntityType="PHCModel.Reward" />
+          <EntitySet Name="Users" EntityType="PHCModel.User" />
+          <EntitySet Name="Wallpapers" EntityType="PHCModel.Wallpaper" />
+        </EntityContainer>
+        <EntityType Name="Badge">
+          <Key>
+            <PropertyRef Name="BId" />
+          </Key>
+          <Property Name="BId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Badgename" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Badgelogo" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="createdDate" Type="DateTime" Precision="3" />
+          <Property Name="CDescription" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="LDescription" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CID" />
+          </Key>
+          <Property Name="CID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Challenge">
+          <Key>
+            <PropertyRef Name="CHID" />
+          </Key>
+          <Property Name="CHID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChallengeName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="BadgeID" Type="Int32" />
+          <Property Name="DogChallengeImage" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CatChallengeImage" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ChallengeCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CatDescription" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Type="String" Name="Tagline" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PetEarnBadge">
+          <Key>
+            <PropertyRef Name="EBID" />
+          </Key>
+          <Property Name="EBID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int32" />
+          <Property Name="UID" Type="Int32" />
+          <Property Name="BID" Type="Int32" />
+          <Property Name="CID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="FBStatus" Type="Boolean" />
+          <Property Name="TwitterStatus" Type="Boolean" />
+          <Property Name="Pinterest" Type="Boolean" />
+          <Property Name="ChCompleteDate" Type="DateTime" Precision="3" />
+          <Property Name="BadgeEarn" Type="Boolean" />
+          <Property Name="CatID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PetProfile">
+          <Key>
+            <PropertyRef Name="PID" />
+          </Key>
+          <Property Name="PID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="Int32" />
+          <Property Name="PetName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PetBreed" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="PetCategory" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PetImage" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Location" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="About" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="FavProduct" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="SecondBadge" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Reward">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="Int32" />
+          <Property Name="WID" Type="Int32" />
+          <Property Type="DateTime" Name="DateUnlocked" Precision="0" />
+          <Property Type="DateTime" Name="DateClaimed" Precision="0" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Gender" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Link" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="fbid" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="acesstoken" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Type="DateTime" Name="SharedToFacebookOn" Precision="3" />
+          <Property Type="DateTime" Name="SharedToTwitterOn" Precision="3" />
+          <Property Type="DateTime" Name="SharedToPinterestOn" Precision="3" />
+        </EntityType>
+        <EntityType Name="Wallpaper">
+          <Key>
+            <PropertyRef Name="WID" />
+          </Key>
+          <Property Name="WID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WallImage" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Title" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Type="Int32" Name="BadgesNeeded" />
+          <Property Type="DateTime" Name="DateUnlocks" Precision="0" />
+          <Property Type="String" Name="ICGPin" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PHCModelStoreContainer" CdmEntityContainer="PHCEntities">
+          <EntitySetMapping Name="Badges">
+            <EntityTypeMapping TypeName="PHCModel.Badge">
+              <MappingFragment StoreEntitySet="Badge">
+                <ScalarProperty Name="BId" ColumnName="BId" />
+                <ScalarProperty Name="Badgename" ColumnName="Badgename" />
+                <ScalarProperty Name="Badgelogo" ColumnName="Badgelogo" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="CDescription" ColumnName="CDescription" />
+                <ScalarProperty Name="LDescription" ColumnName="LDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="PHCModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CID" ColumnName="CID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Challenges">
+            <EntityTypeMapping TypeName="PHCModel.Challenge">
+              <MappingFragment StoreEntitySet="Challenge">
+                <ScalarProperty Name="Tagline" ColumnName="Tagline" />
+                <ScalarProperty Name="CHID" ColumnName="CHID" />
+                <ScalarProperty Name="ChallengeName" ColumnName="ChallengeName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BadgeID" ColumnName="BadgeID" />
+                <ScalarProperty Name="DogChallengeImage" ColumnName="DogChallengeImage" />
+                <ScalarProperty Name="CatChallengeImage" ColumnName="CatChallengeImage" />
+                <ScalarProperty Name="ChallengeCreatedDate" ColumnName="ChallengeCreatedDate" />
+                <ScalarProperty Name="CatDescription" ColumnName="CatDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PetEarnBadges">
+            <EntityTypeMapping TypeName="PHCModel.PetEarnBadge">
+              <MappingFragment StoreEntitySet="PetEarnBadge">
+                <ScalarProperty Name="EBID" ColumnName="EBID" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="BID" ColumnName="BID" />
+                <ScalarProperty Name="CID" ColumnName="CID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="FBStatus" ColumnName="FBStatus" />
+                <ScalarProperty Name="TwitterStatus" ColumnName="TwitterStatus" />
+                <ScalarProperty Name="Pinterest" ColumnName="Pinterest" />
+                <ScalarProperty Name="ChCompleteDate" ColumnName="ChCompleteDate" />
+                <ScalarProperty Name="BadgeEarn" ColumnName="BadgeEarn" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PetProfiles">
+            <EntityTypeMapping TypeName="PHCModel.PetProfile">
+              <MappingFragment StoreEntitySet="PetProfile">
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="PetName" ColumnName="PetName" />
+                <ScalarProperty Name="PetBreed" ColumnName="PetBreed" />
+                <ScalarProperty Name="PetCategory" ColumnName="PetCategory" />
+                <ScalarProperty Name="PetImage" ColumnName="PetImage" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="About" ColumnName="About" />
+                <ScalarProperty Name="FavProduct" ColumnName="FavProduct" />
+                <ScalarProperty Name="SecondBadge" ColumnName="SecondBadge" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rewards">
+            <EntityTypeMapping TypeName="PHCModel.Reward">
+              <MappingFragment StoreEntitySet="Reward">
+                <ScalarProperty Name="DateClaimed" ColumnName="DateClaimed" />
+                <ScalarProperty Name="DateUnlocked" ColumnName="DateUnlocked" />
+                <ScalarProperty Name="RID" ColumnName="RID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="WID" ColumnName="WID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PHCModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="SharedToPinterestOn" ColumnName="SharedToPinterestOn" />
+                <ScalarProperty Name="SharedToTwitterOn" ColumnName="SharedToTwitterOn" />
+                <ScalarProperty Name="SharedToFacebookOn" ColumnName="SharedToFacebookOn" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="fbid" ColumnName="fbid" />
+                <ScalarProperty Name="acesstoken" ColumnName="acesstoken" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wallpapers">
+            <EntityTypeMapping TypeName="PHCModel.Wallpaper">
+              <MappingFragment StoreEntitySet="Wallpaper">
+                <ScalarProperty Name="ICGPin" ColumnName="ICGPin" />
+                <ScalarProperty Name="DateUnlocks" ColumnName="DateUnlocks" />
+                <ScalarProperty Name="BadgesNeeded" ColumnName="BadgesNeeded" />
+                <ScalarProperty Name="WID" ColumnName="WID" />
+                <ScalarProperty Name="WallImage" ColumnName="WallImage" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

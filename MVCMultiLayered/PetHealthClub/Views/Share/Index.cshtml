@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Pet Health Club Dashboard";
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+<script type="text/javascript" src="@Url.Content("~/Content/js/share.js")"></script>
+
+<script type="text/javascript">
+    window.fbAsyncInit = function () {
+        FB.init({ appId: '110901372396602', status: true, cookie: true, xfbml: true });
+    }
+</script>
+
+<h2>ShareTest</h2>
+
+@{Html.RenderPartial("BadgeDetailModal");}
+
+<script type="text/javascript">
+
+    function shareCallback(args) {
+        //if( args.type == 'facebook' ) 
+        console.log('callback');
+    };
+
+    SocialShare.init({
+        callback: shareCallback
+        , text: "I just unlocked a PetHealthClub badge with my pet! Join the club and you can win free from NaturesRecipe!"
+        , image: "http://pethealthclub.vm-fb.com/Content/images/PetHealthClub.png"
+        , url: "https://apps.facebook.com/pethealthclub/"
+        , name: 'Pet Health Club'
+    });
+
+    $('.fb').bindFacebookShare({});
+    $('.tw').bindTwitterShare({});
+    $('.pin').bindPinterestShare({});
+
+</script>

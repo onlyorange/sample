@@ -1,0 +1,274 @@
+﻿@{
+    //model PHCDto.DTO.ProfileDTO
+}
+
+@model PetHealthClub.Areas.Dashboard.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Pet Health Club Dashboard";
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+@section head {
+    <script type="text/javascript" src="@Url.Content("~/Content/js/jquery.reveal.js")"></script>
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/reveal.css")"/>
+
+    <script src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+    <script src="@Url.Content("~/Content/js/slides.min.jquery.js")"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            // Set starting slide to 1
+            var startSlide = 1;
+            // Get slide number if it exists
+            if (window.location.hash) {
+                startSlide = window.location.hash.replace('#', '');
+            }
+
+            // Initialize Slides
+            $('#dashboard').slides({
+                container: 'dashboard_slider'
+		        , generateNextPrev: true
+		        , slideSpeed: 500
+                , start: startSlide
+                , animationComplete: function (current) {
+                    // Set the slide number as a hash
+                    window.location.hash = '#' + current;
+                }
+            });
+
+            // interface
+            $('ul.pagination').ready(function () {
+                $('ul.pagination').addClass('clearfix');
+            });
+            $('#earn_more').ready(function () {
+                $('#earn_more').show().animate({
+                    height: '35px'
+                }, 500);
+            });
+
+            
+            // setup hovers for the various badges
+            var hovers = [1, 9, 11, 14, 20];
+            $(hovers).each(function(key, i){
+                $('#b' + i).hover(function () {
+                    $('#badge_' + i).fadeIn(200);
+                }, function () {
+                    $('#badge_' + i).fadeOut(200);
+                });
+            });
+
+            // init share handlers for the dashboard page
+            SocialShare.init({
+                callback: BadgeHelper.shareCallback
+                , text: "@ConfigurationHelper.ShareCopy_Facebook_Main"
+                , image: '@ConfigurationHelper.SiteUrl@Url.Content("~/Content/images/PetHealthClub.png")'
+                , url: "@ConfigurationHelper.FacebookAppUrl"
+                , name: 'Pet Health Club'
+            });
+
+            //
+            // now bind our sharing options
+            $('.dashFb').bindFacebookShare({ });
+            $('.dashPin').bindPinterestShare({ text: "@ConfigurationHelper.ShareCopy_Pinterest_Main" });
+            $('.dashTw').bindTwitterShare({ twitterText: "@Url.Encode(ConfigurationHelper.ShareCopy_Twitter_Main)" });
+
+            // handle a modal for any badge/challenge
+            var urlid = (document.URL).split("chi=");
+            if (urlid[1] != undefined)
+            {
+                $.get('@Url.Content("~/PetUser/User/CHDExists")?chi=' + urlid[1], function (data)
+                {
+                    BadgeHelper.showBadgeDetail(data, '@Url.Content("~/")');
+                });
+                document.getElementById('hidpop').click();
+            }
+
+            // GA tracking code for Dashboard slide left
+            $('#prev_slide').click(function () {
+                _gaq.push(['_trackEvent', 'Clicks', 'Dashboard', 'SlideLeft']);
+            });
+
+            // GA tracking code for Dashboard slide left
+            $('#next_slide').click(function () {
+                _gaq.push(['_trackEvent', 'Clicks', 'Dashboard', 'SlideRight']);
+            });
+        });
+
+        window.fbAsyncInit = function () {
+            FB.init({ appId: '@PetHealthClub.Helpers.ConfigurationHelper.FacebookAppId', status: true, cookie: true, xfbml: true });
+            FB.Canvas.setSize({ height: 1350 });
+        }
+
+        // GA tracking code for Dashboard My paws pass
+        function trackPawsPass() {
+            _gaq.push(['_trackEvent', 'Clicks', 'Dashboard', 'MyPawsPass']);
+        }
+
+        // GA tracking code for Dashboard My Rewards
+        function trackMyRewards() {
+            _gaq.push(['_trackEvent', 'Clicks', 'Dashboard', 'MyRewards']);
+        }
+    </script>
+}
+
+<div class="content">
+    <div id="dashboard" class="white_container_noshadow">
+		<div id="dashboard_slider" class="dashboard_slider">
+            @foreach (var challenge in Model.Challenges)
+            {
+			    <div class="challenge_container clearfix">
+				    <div class="copy_box">
+					    @if( challenge.IsContestChallenge ) {
+                            <div class="contest_challenge">Contest Challenge</div>
+                        } else {
+                            <div class="contest_challenge_na" style="height:77px;"></div>               
+                        }
+					    <div class="copy_text">
+						    <h3>@challenge.pchname</h3>
+						    <p>@challenge.Tagline</p>
+						    @if( challenge.IsContestChallenge ) { 
+                                <p class="subtext">Completing this challenge unlocks a badge and a chance to win a @challenge.PrizeName.</p>
+                            }
+					    </div>
+					    <div class="take_challenge_button" onclick="document.location='@Url.Content("~/PetUser/User/PetChallenge?id=" + @challenge.pch)';">Take the challenge</div>
+				    </div>
+				    <div class="photo">
+					    <a href="@Url.Content("~/PetUser/User/PetChallenge?id=" + @challenge.pch)"><img src="@Url.Content("~/Content/images/cat" + challenge.pch + ".png")" alt="@challenge.pchname" title="@challenge.pchname" /></a>
+				    </div>
+			    </div>
+            }
+        </div>
+    </div>
+
+    <div class="sub_white_container" id="earn_more">
+	    You can earn more badges by completing your Paws Pass and Sharing it on <a class="dashFb" href="#">Facebook</a>, <a class="dashTw" href="#">Twitter</a>, and <a class="dashPin" href="#">Pinterest</a>.
+    </div>
+    
+    @{ var i = 0; }
+    <div id="badge_meter" class="clearfix">
+		
+        <a href="@Url.Content("~/PetUser/User/BadgesList")">
+            <div id="b1" class="badge @Model.BadgeCss[i]">
+                <div class="bubble" id="badge_1">
+			        Welcome to Pet Health Club!  Grab your free wallpaper.
+		        </div>
+		    </div>
+		    <ul class="meter clearfix">
+			    <li class="@Model.BadgeCss[++i]">2</li>
+			    <li class="@Model.BadgeCss[++i]">3</li>
+			    <li class="@Model.BadgeCss[++i]">4</li>
+			    <li class="@Model.BadgeCss[++i]">5</li>
+			    <li class="@Model.BadgeCss[++i]">6</li>
+			    <li class="@Model.BadgeCss[++i]">7</li>
+			    <li class="@Model.BadgeCss[++i]">8</li>
+		    </ul>
+        
+		    <div id="b9" class="badge @Model.BadgeCss[++i]">
+                <div class="bubble" id="badge_9">
+			        9 badges earns you a printable calendar.
+		        </div>
+		    </div>
+		    <ul class="meter clearfix">
+			    <li class="@Model.BadgeCss[++i]">10</li>
+		    </ul>
+        
+		    <div id="b11" class="badge @Model.BadgeCss[++i]">
+                <div class="bubble" id="badge_11">
+			        11 badges earns you a coupon for $3 off any Nature's Recipe product.*
+		        </div>
+		    </div>
+		    <ul class="meter clearfix">
+			    <li class="@Model.BadgeCss[++i]">12</li>
+			    <li class="@Model.BadgeCss[++i]">13</li>
+		    </ul>
+		
+            <div id="b14" class="badge @Model.BadgeCss[++i]">
+                <div class="bubble" id="badge_14">
+			        14 badges earns you a coupon for $10 off any Nature's Recipe product.*
+		        </div>
+            </div>
+
+		    <ul class="meter clearfix">
+			    <li class="@Model.BadgeCss[++i]">15</li>
+			    <li class="@Model.BadgeCss[++i]">16</li>
+			    <li class="@Model.BadgeCss[++i]">17</li>
+			    <li class="@Model.BadgeCss[++i]">18</li>
+			    <li class="@Model.BadgeCss[++i]">19</li>
+		    </ul>
+		    <div id="b20" class="badge @Model.BadgeCss[++i]">
+                <div class="bubble" id="badge_20">
+			        When you earn 20 badges, you've completed Pet Health Club!
+		        </div>
+		    </div>
+        </a>
+	</div>
+	
+    <div id="my_panel" class="clearfix">
+		<a href="@Url.Content("~/PetUser/User/BadgesList")" id="my_badges">My Badges</a>
+        <a href="@Url.Content("~/PetUser/User/Rewards")" id="my_rewards">My Rewards</a>
+		<a href="@Url.Content("~/PetUser/User/PetProfile")" id="my_paws_pass">My Paws Pass</a>
+	</div>
+	
+	<div id="facepile">
+        <fb:facepile href="https://www.facebook.com/NaturesRecipe" size="large" max_rows="2" width="500"></fb:facepile>
+    </div>
+    <p align="center">
+        <em>* While supplies last.</em>
+    </p>
+</div>
+
+<div style="height: 629px; opacity: 0.7; display: none;" id="backgroundPopup"></div>
+<a href="#" class="big-link" data-reveal-id="myModal1" data-animation="fade" id="hidpop"></a>
+    
+@if (Model.ShowFirstBadgeModel )
+{
+        <div id="firstBadgeModal" class="first_modal">
+        
+        <a class="close-reveal-modal"><img src="@Url.Content("~/Content/images/close.png")" /></a>
+
+        <div class="first_badge" style="margin-top:65px !important;">
+            <div class="title">New Tricks</div>
+        </div>
+        
+        <div class="modal_content" style="padding-top:0px !important;">
+            <h1>Congrats!</h1>
+            <h2>You just earned your first badge!</h2>
+            <p>
+                Now you can fill out the rest of your Paws Pass. This will allow you to take challenges to earn more badges and collect more rewards.
+                    
+                <span id="like_button_first_badge">
+                    <fb:like href="https://www.facebook.com/NaturesRecipe" send="false" layout="button_count" width="450" show_faces="false"></fb:like>
+                </span>
+            </p>
+
+
+            <a href="@Url.Content("~/PetUser/User/PetProfile")"><div class="complete_paws_pass" style="margin-left:48px;">Complete Paws Pass</div></a>
+
+            <div class="social_icons" id="social_sharing" style="margin-left:129px;margin-top:13px; width:162px;">
+                <a class="fb" id="fblink"></a>
+                <a class="tw" ></a>
+                <a class="pin"></a>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="big-link" data-reveal-id="firstBadgeModal" data-animation="fade" id="firstBadgePop"></a>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            document.getElementById('firstBadgePop').click();
+
+            $('.fb').bindFacebookShare({});
+            $('.pin').bindPinterestShare({ text: "@ConfigurationHelper.ShareCopy_Pinterest_Main" });
+            $('.tw').bindTwitterShare({ twitterText: "@Url.Encode(ConfigurationHelper.ShareCopy_Twitter_Main)" });
+        });
+    </script>
+}
+else
+{
+    Html.RenderPartial("EarnedBadgeModal");
+}
+
+<script src="@Url.Content("~/Content/js/tiny.js")"></script>

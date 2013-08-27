@@ -1,0 +1,213 @@
+﻿@model PHCDto.DTO.ChallengeDTO
+@{
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+@section head {
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+
+    <script src="@Url.Content("~/Content/js/jquery.reveal111.js")"></script>
+
+    <script src="@Url.Content("~/Content/js/tiny.js")"></script>
+
+    <link href="@Url.Content("~/Content/css/reveal.css")" rel="stylesheet" type="text/css" />
+
+
+    <script type="text/javascript">
+        // some globals for ease of use
+        var hasFileReader = true;
+        var fileReader; // holds the fileReader object (if present)
+        var userdesc_val = "Fill in the details! 500 character limit";
+
+        $(document).ready(function () {
+            try {
+                fileReader = new FileReader();
+            }
+            catch (e) {
+                hasFileReader = false;
+            }
+
+            // handles the upload method for each browser
+            if( hasFileReader ) {
+                $("#up_photo, #upload_preview").click(function () {
+                    $("#upload_file").trigger('click');
+                });
+            } else {
+                $('#uploader').hide();
+                $('.upload_text').show();
+                $('#upload_file').show();
+            }
+
+            // challenge text handler
+            
+            ApplyWatermark('#userdesc', userdesc_val);
+
+            // submit handling
+            $('#we_did_it').click(function () {
+
+                ClearWatermark('#userdesc', userdesc_val);
+                //_gaq.push(['_trackEvent', 'Clicks', chal_name, 'Dog']);
+
+                var pet_desc = $('#userdesc').val();
+                var pet_image = $('#upload_file').val();
+
+                if (pet_image == '' && (pet_desc == '' || pet_desc == userdesc_val) ) {
+                    $("#form_errors").show();
+                    return false;
+                }
+
+                if (pet_desc == userdesc_val)
+                    $('#userdesc').val('');
+                return true;
+            });
+        });
+
+        // handles the uploading for html5 enabled browsers
+        function uploadPhoto(input) {
+            if (input.files && input.files[0]) {
+                fileReader.onload = function (e)
+                {
+                    $('#upload_preview').attr('src', e.target.result);
+                    $('#upload_preview').show();
+                    $('#up_photo').hide();
+
+                    $('#uerpetimg').val(e.target.result);
+                }
+                fileReader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        var $j = jQuery.noConflict();
+        $j(window).load(function () {
+            $j('#carousel').bxCarousel({
+                display_num: 5,
+                move: 1,
+                prev_image: '@Url.Content("~/Content/images/prev.png")',
+                next_image: '@Url.Content("~/Content/images/next.png")'
+            });
+
+
+            $j(".block2chpage").hover(function () {
+                $(this).addClass('hover');
+                $j("#dog_desc").show();
+            }, function () {
+                $j(this).removeClass('hover');
+                $j("#dog_desc").hide();
+            });
+
+            $j(".block3chpage").hover(function () {
+                $(this).addClass('hover');
+                $j("#cat_desc").show();
+            }, function () {
+                $(this).removeClass('hover');
+                $j("#cat_desc").hide();
+            });
+
+            // GA tracking for Back to dashboard button
+            $j('#back_dashboard').click(function () {
+                _gaq.push(['_trackEvent', 'Clicks', 'ChallengePage', 'Back']);
+
+            })
+        });
+    </script>
+}
+    <div class="content">
+
+        @{ var h3Class = Model.IsContestChallenge == true ? "contest_challenge" : "";}
+        
+        <div id="challenge_to_dash">
+	        <a href="@Url.Content("~/Dashboard")" class="back_to_dashboard">Back to Dashboard</a>
+	    </div>
+        <br /><br />
+
+	    <div id="challenge" class="white_container">
+		    <div class="top_bar clearfix">
+			    <h3 class="@h3Class">@Model.ChallengeName</h3>
+		    </div>
+		    <div class="chal_body clearfix">
+			    <div class="pet_spec">
+				    <h3 class="cat">Cat challenge</h3>
+				    <p>@Model.CatDescription</p>
+				    <h3 class="dog">Dog challenge</h3>
+				    <p>@Model.Description</p>
+			    </div>
+			    <div class="chal_form">
+                    @if( ViewBag.CompletedChallenge == true ) {
+                        var completedModel = ViewBag.CompletedModel as PetHealthClub.Areas.PetUser.Models.ChallengeCompletedViewModel;
+                        <div class="fields clearfix">
+                           
+                            Challenge completed: @completedModel.DateCompleted.ToShortDateString()!
+                            
+                            @if( Model.IsContestChallenge ) {
+                                <div class="dlReward">
+                                    <a href="@Url.Content("~/PetUser/User/RedeemReward/" + Model.RewardId)" style="border: solid 2px white;">Complete prize entry</a>
+                                </div>
+                            }
+                            
+                            @if (!string.IsNullOrWhiteSpace(completedModel.UserImage))
+                            {
+                                <img src="@Url.Content("~/content/uploads/challenges/" + completedModel.UserImage)" style="max-width: 400px; margin:10px 0 10px 0;" />
+                            }
+                            <div>@completedModel.UserDescription</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <text>
+                        Add a photo or tell us about it!
+				        </text>
+                        using (Html.BeginForm("PetChallenge", "User", FormMethod.Post, new { area = "PetUser", enctype = "multipart/form-data" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            <div class="fields clearfix">
+					            <img id="upload_preview" title="Click to upload Photo" style="display:none;" />
+                        
+                                <div id="up_photo">
+                                    <span id="uploader">Click to upload picture</span>
+                                </div>
+                                <input type="file" name="upload_file" id="upload_file" style="display: none" onchange="uploadPhoto(this);" />
+
+					            @Html.TextAreaFor(model => model.userdesc, new { @id = "userdesc" })
+				            </div>
+                        
+                            <input type="hidden" name="ChallengeId" value="@Model.CHID" />
+                            <input type="hidden" name="PetId" value="@Model.PID" />
+				        
+                            <input type="submit" value="We did it"  id="we_did_it" class="we_did_it"/>
+                            <div id="form_errors">Please either upload a photo or tell us about how you completed this challenge.</div>
+                        }
+                    }
+			    </div>
+		    </div>
+	    </div>
+
+
+        <div class="clr1">&nbsp; </div>
+        <!--
+        <div class="previous_b">
+                <img src="@Url.Content("~/Content/images/previous.png")" style="border:0px;" />
+        </div>
+        <div class="carousel">
+
+            <ul id="carousel">
+                @foreach (var badgeblock in Model.lstchdto)
+                {
+                    <li><a href="#" onclick="Challenge(@badgeblock.CHID)">
+                        <img src="@Url.Content("~/Content/Uploads/Challenges/" + badgeblock.dogchImg)" style="float:left;width:75px;height:75px" />
+                        <span style="text-wrap:avoid;float:left;min-width:75px;color:#fff;font-size:14px;font-family:Calibri;font-style:italic">
+                                @badgeblock.ChallengeName
+                        </span>                          
+                    </a></li>
+                }
+            </ul>
+
+        </div>
+        -->
+
+
+    </div>

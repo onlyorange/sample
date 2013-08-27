@@ -1,0 +1,55 @@
+﻿@model PHCDto.DTO.RewardsDTO
+@{
+    ViewBag.Title = "WallpaperList";
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+
+<script type="text/javascript">
+
+    function Challenge(wid)
+    {
+        window.location.href = "../User/WallpaperList?wid="+wid;
+    }
+</script>
+
+
+<div class="container">
+
+    <div class="content">
+         <div style="float: left; margin-left: 150px;">
+            <a href="@Url.Content("~/PetUser/User/BadgePage1")">
+                <img src="@Url.Content("~/Content/images/back.png")" />
+            </a>
+        </div>
+
+      
+        <div class="clr1">&nbsp; </div>
+
+        <br />
+        <br />
+
+         <div style="width: 710px; background-color: #fff; margin: 0px auto; height: auto; overflow: hidden">
+
+<div class="Wallpaper-box">
+    <div class="WallpaperBlock" id="divwall" >
+        @foreach (var walllist in Model.lstrewards)
+        {
+            
+                <div class="wb2">
+                    <img src="@walllist.WallImage" class="wallstyle" /><br />
+                    <div style="color:#ff6a00;font-family:Calibri;font-size:14px;font-style:italic;text-align:center;width:150px"> @walllist.Title</div>
+                    <div style="color:#ff6a00;font-family:Calibri;font-size:14px;font-style:italic;text-align:center;width:150px">
+                         @Html.ActionLink("Download", "ForceImageDownload", new { wid=walllist.WID })
+                  </div>
+                    
+                </div>
+             
+        }
+    </div>
+</div>
+
+
+             </div>
+        </div>
+    </div>

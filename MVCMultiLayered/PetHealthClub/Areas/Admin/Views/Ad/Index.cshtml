@@ -1,0 +1,81 @@
+﻿@model PHCDto.DTO.LoginDTO
+@{
+   
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>PET HEALTH CLUB</title>
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+</head>
+@using (Html.BeginForm("Index", "Ad", FormMethod.Post))
+{
+    <body>
+        <div class="container">
+            <div class="mainheader">
+                <div class="header-button">
+                    <a href="#">
+                        <img src="images/button-h.png" style="border: 0px;" />
+                    </a>
+                </div>
+
+            </div>
+            <div class="content">
+
+                <div style="float: left; margin-left: 150px;">
+                    <a href="#">
+                        <img src="images/back.png" />
+                    </a>
+                </div>
+
+                <div class="midslider3">
+                    @Html.ValidationSummary(true)
+                    <div style="display: block; margin-top: 100px">
+                        <div class="divblock" style="float: left; padding-left: 100px; font-size: 16px; font-weight: bold; font-family: Verdana">
+                            Admin login
+                        </div>
+                        <div class="clr"></div>
+                        <div class="clr"></div>
+                        <div class="clr"></div>
+                        <div class="divblock">
+                            <div class="divblock-left">User name:</div>
+                            <div class="divblock-right">
+                                @Html.TextBoxFor(model => model.uname, new { @Style = "width:175px", @class = "inp-round1" })
+                                @Html.ValidationMessageFor(model => model.uname)
+                            </div>
+                        </div>
+
+
+                        <div class="clr"></div>
+                        <div class="divblock">
+                            <div class="divblock-left">Password:</div>
+                            <div class="divblock-right">
+                                @Html.PasswordFor(model => model.pwd, new { @Style = "width:175px", @class = "inp-round1" })
+                                @Html.ValidationMessageFor(model => model.pwd)
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                        <div class="divblock">
+                            <div class="divblock-left">&nbsp;</div>
+                            <div class="divblock-right">
+                                <input type="submit" value="Login" class="button orange small" id="goto" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+}
+</html>
+

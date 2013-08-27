@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{02D17D14-3338-4C49-8ADF-3415ACE2692D}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PetHealthClub</RootNamespace>
+    <AssemblyName>PetHealthClub</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac">
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="FacebookUserImport">
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\FacebookUserImport.dll</HintPath>
+    </Reference>
+    <Reference Include="ImpactWorks.FBGraph">
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\ImpactWorks.FBGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20505.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20505.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20505.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20505.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20505.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Twitterizer.Framework">
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\Twitterizer.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitterizer2">
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\Twitterizer2.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+      <HintPath>..\..\..\..\PetHealthClub17092012SourceCode\PetHealthClub\bin\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdController.cs" />
+    <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Dashboard\Models\DashboardViewModel.cs" />
+    <Compile Include="Areas\PetUser\Controllers\UserController.cs" />
+    <Compile Include="Areas\PetUser\Models\RewardViewModel.cs" />
+    <Compile Include="Areas\Redemption\Controllers\ServiceController.cs" />
+    <Compile Include="Areas\Redemption\Helpers\RedemptionHelper.cs" />
+    <Compile Include="Areas\Redemption\Models\ConfirmPrizeModel.cs" />
+    <Compile Include="Areas\Redemption\Models\TestViewModel.cs" />
+    <Compile Include="Areas\Redemption\Models\ValidateTokenModel.cs" />
+    <Compile Include="Areas\Redemption\RedemptionAreaRegistration.cs" />
+    <Compile Include="Controllers\ShareController.cs" />
+    <Compile Include="Helpers\ConfigurationHelper.cs" />
+    <Compile Include="Models\SignupViewModel.cs" />
+    <Compile Include="Areas\PetUser\PetUserAreaRegistration.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Content\blue_slice_challenge.png" />
+    <Content Include="bin\PetHealthClub.dll" />
+    <Content Include="bin\PetHealthClub.pdb" />
+    <Content Include="Content\css\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="Content\css\cupertino\images\ui-bg_flat_15_cd0a0a_40x100.png" />
+    <Content Include="Content\css\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="Content\css\cupertino\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="Content\css\cupertino\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="Content\css\cupertino\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="Content\css\cupertino\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="Content\css\cupertino\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="Content\css\cupertino\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="Content\css\cupertino\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="Content\css\cupertino\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\css\cupertino\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="Content\css\cupertino\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="Content\css\cupertino\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\css\cupertino\jquery-ui-1.7.3.custom.css" />
+    <Content Include="Content\css\normalize.css" />
+    <Content Include="Content\css\reveal.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\style000.css" />
+    <Content Include="Content\fonts\ptscript-lightning-webfont.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\1.jpg" />
+    <Content Include="Content\images\10_03.png" />
+    <Content Include="Content\images\11_03.png" />
+    <Content Include="Content\images\12_03.png" />
+    <Content Include="Content\images\13_03.png" />
+    <Content Include="Content\images\14_03.png" />
+    <Content Include="Content\images\15_03.png" />
+    <Content Include="Content\images\16_03.png" />
+    <Content Include="Content\images\17_03.png" />
+    <Content Include="Content\images\18_03.png" />
+    <Content Include="Content\images\19_03.png" />
+    <Content Include="Content\images\1_03.png" />
+    <Content Include="Content\images\20_03.png" />
+    <Content Include="Content\images\2_03.png" />
+    <Content Include="Content\images\3_03.png" />
+    <Content Include="Content\images\4_03.png" />
+    <Content Include="Content\images\5_03.png" />
+    <Content Include="Content\images\6_03.png" />
+    <Content Include="Content\images\7_03.png" />
+    <Content Include="Content\images\8_03.png" />
+    <Content Include="Content\images\9_03.png" />
+    <Content Include="Content\images\arrow-next.png" />
+    <Content Include="Content\images\arrow-prev.png" />
+    <Content Include="Content\images\b1.png" />
+    <Content Include="Content\images\b2.png" />
+    <Content Include="Content\images\back.png" />
+    <Content Include="Content\images\background.png" />
+    <Content Include="Content\images\badgecount\1.png" />
+    <Content Include="Content\images\badgecount\10.png" />
+    <Content Include="Content\images\badgecount\11.png" />
+    <Content Include="Content\images\badgecount\12.png" />
+    <Content Include="Content\images\badgecount\13.png" />
+    <Content Include="Content\images\badgecount\14.png" />
+    <Content Include="Content\images\badgecount\15.png" />
+    <Content Include="Content\images\badgecount\16.png" />
+    <Content Include="Content\images\badgecount\17.png" />
+    <Content Include="Content\images\badgecount\18.png" />
+    <Content Include="Content\images\badgecount\19.png" />
+    <Content Include="Content\images\badgecount\2.png" />
+    <Content Include="Content\images\badgecount\20.png" />
+    <Content Include="Content\images\badgecount\3.png" />
+    <Content Include="Content\images\badgecount\4.png" />
+    <Content Include="Content\images\badgecount\5.png" />
+    <Content Include="Content\images\badgecount\6.png" />
+    <Content Include="Content\images\badgecount\7.png" />
+    <Content Include="Content\images\badgecount\8.png" />
+    <Content Include="Content\images\badgecount\9.png" />
+    <Content Include="Content\images\bg.png" />
+    <Content Include="Content\images\bg000000.jpg" />
+    <Content Include="Content\images\big-pop.png" />
+    <Content Include="Content\images\big_b.png" />
+    <Content Include="Content\images\big_popup_box.png" />
+    <Content Include="Content\images\blue-bg.png" />
+    <Content Include="Content\images\blue_bg.gif" />
+    <Content Include="Content\images\blue_box.png" />
+    <Content Include="Content\images\blue_gray_bg_badges.png" />
+    <Content Include="Content\images\blue_slice.png" />
+    <Content Include="Content\images\blue_challenge.png" />
+    <Content Include="Content\images\body-bg.png" />
+    <Content Include="Content\images\button-h.png" />
+    <Content Include="Content\images\cat.jpg" />
+    <Content Include="Content\images\cat.png" />
+    <Content Include="Content\images\cat1.png" />
+    <Content Include="Content\images\cat10.png" />
+    <Content Include="Content\images\cat11.png" />
+    <Content Include="Content\images\cat12.png" />
+    <Content Include="Content\images\cat13.png" />
+    <Content Include="Content\images\cat14.png" />
+    <Content Include="Content\images\cat15.png" />
+    <Content Include="Content\images\cat16.png" />
+    <Content Include="Content\images\cat17.png" />
+    <Content Include="Content\images\cat18.png" />
+    <Content Include="Content\images\cat19.png" />
+    <Content Include="Content\images\cat2.png" />
+    <Content Include="Content\images\cat20.png" />
+    <Content Include="Content\images\cat3.png" />
+    <Content Include="Content\images\cat4.png" />
+    <Content Include="Content\images\cat5.png" />
+    <Content Include="Content\images\cat6.png" />
+    <Content Include="Content\images\cat7.png" />
+    <Content Include="Content\images\cat8.png" />
+    <Content Include="Content\images\cat9.png" />
+    <Content Include="Content\images\catch1.png" />
+    <Content Include="Content\images\cat_challenge.png" />
+    <Content Include="Content\images\cat_challenge_hover.png" />
+    <Content Include="Content\images\challenge_sprites.png" />
+    <Content Include="Content\images\check12.png" />
+    <Content Include="Content\images\close.png" />
+    <Content Include="Content\images\coin-img1.png" />
+    <Content Include="Content\images\coin-img2.png" />
+    <Content Include="Content\images\coin-img3.png" />
+    <Content Include="Content\images\coin1.png" />
+    <Content Include="Content\images\deletepet.png" />
+    <Content Include="Content\images\dog.jpg" />
+    <Content Include="Content\images\dogch1.png" />
+    <Content Include="Content\images\dogwoman.png" />
+    <Content Include="Content\images\dog_challange %282%29.png" />
+    <Content Include="Content\images\dog_challenge.png" />
+    <Content Include="Content\images\dog_challenge_hover.png" />
+    <Content Include="Content\images\dummy.png" />
+    <Content Include="Content\images\editpet.png" />
+    <Content Include="Content\images\enterprofile.png" />
+    <Content Include="Content\images\example-frame.png" />
+    <Content Include="Content\images\facebook.png" />
+    <Content Include="Content\images\first_blue.png" />
+    <Content Include="Content\images\get_started_box.png" />
+    <Content Include="Content\images\glow_bg.png" />
+    <Content Include="Content\images\header-bg.png" />
+    <Content Include="Content\images\header_bg.png" />
+    <Content Include="Content\images\header_bottom.png" />
+    <Content Include="Content\images\header_mid.png" />
+    <Content Include="Content\images\header_top.png" />
+    <Content Include="Content\images\headXZcer_mid.png" />
+    <Content Include="Content\images\HomeButton.jpg" />
+    <Content Include="Content\images\HomeButton.png" />
+    <Content Include="Content\images\house.png" />
+    <Content Include="Content\images\img1.png" />
+    <Content Include="Content\images\img2.png" />
+    <Content Include="Content\images\img3.png" />
+    <Content Include="Content\images\invite_friends.png" />
+    <Content Include="Content\images\landing.png" />
+    <Content Include="Content\images\landing_steps.png" />
+    <Content Include="Content\images\line1000.png" />
+    <Content Include="Content\images\line2000.png" />
+    <Content Include="Content\images\line3000.png" />
+    <Content Include="Content\images\line4000.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\new-ribbon.png" />
+    <Content Include="Content\images\next.png" />
+    <Content Include="Content\images\no-img.jpg" />
+    <Content Include="Content\images\Noimage1.jpg" />
+    <Content Include="Content\images\orange_bg.gif" />
+    <Content Include="Content\images\orange_button_bg.png" />
+    <Content Include="Content\images\pagination.png" />
+    <Content Include="Content\images\pet123.png" />
+    <Content Include="Content\images\pinterest.png" />
+    <Content Include="Content\images\pinterest_default.png" />
+    <Content Include="Content\images\pinterest_hover.png" />
+    <Content Include="Content\images\play-b.png" />
+    <Content Include="Content\images\playtime.png" />
+    <Content Include="Content\images\playtimech.png" />
+    <Content Include="Content\images\pop.png" />
+    <Content Include="Content\images\pop2.png" />
+    <Content Include="Content\images\prev.png" />
+    <Content Include="Content\images\previous.png" />
+    <Content Include="Content\images\prev_blue_slice.png" />
+    <Content Include="Content\images\prize-01.png" />
+    <Content Include="Content\images\prize-03.png" />
+    <Content Include="Content\images\prize-04.png" />
+    <Content Include="Content\images\prizes-02.png" />
+    <Content Include="Content\images\product1.png" />
+    <Content Include="Content\images\product2.png" />
+    <Content Include="Content\images\product3.png" />
+    <Content Include="Content\images\product4.png" />
+    <Content Include="Content\images\product5.png" />
+    <Content Include="Content\images\product_img.png" />
+    <Content Include="Content\images\profile.png" />
+    <Content Include="Content\images\profile_bg.png" />
+    <Content Include="Content\images\rewards_bg.png" />
+    <Content Include="Content\images\rewards_blue_box.png" />
+    <Content Include="Content\images\round.png" />
+    <Content Include="Content\images\save.png" />
+    <Content Include="Content\images\shadow.png" />
+    <Content Include="Content\images\Sign-in-with-Twitter-lighter.png" />
+    <Content Include="Content\images\slide-1.jpg" />
+    <Content Include="Content\images\slide-2.jpg" />
+    <Content Include="Content\images\slide-3.jpg" />
+    <Content Include="Content\images\slide-4.jpg" />
+    <Content Include="Content\images\slide-5.jpg" />
+    <Content Include="Content\images\slide-6.jpg" />
+    <Content Include="Content\images\slide-7.jpg" />
+    <Content Include="Content\images\slide.jpg" />
+    <Content Include="Content\images\small_dog_1.png" />
+    <Content Include="Content\images\small_dog_2.png" />
+    <Content Include="Content\images\sprites.png" />
+    <Content Include="Content\images\sprites2.png" />
+    <Content Include="Content\images\sprites_badge_meter.png" />
+    <Content Include="Content\images\sprites_challenge.png" />
+    <Content Include="Content\images\sprites_dashboard.png" />
+    <Content Include="Content\images\submitinfo.gif" />
+    <Content Include="Content\images\twitter.png" />
+    <Content Include="Content\images\uploadbutton.png" />
+    <Content Include="Content\images\user-img.png" />
+    <Content Include="Content\images\white_bg_slider.png" />
+    <Content Include="Content\images\Xacti-AC8EX-Sample_video-001.ogg" />
+    <Content Include="Content\js\csscusto.js" />
+    <Content Include="Content\js\jquery-1.4.4.min.js" />
+    <Content Include="Content\js\jquery-latest.js" />
+    <Content Include="Content\js\jquery.reveal.js" />
+    <Content Include="Content\js\jquery.reveal111.js" />
+    <Content Include="Content\js\jquery00.js" />
+    <Content Include="Content\js\jquery01.js" />
+    <Content Include="Content\js\jquery02.js" />
+    <Content Include="Content\js\jquery03.js" />
+    <Content Include="Content\js\js000000.js" />
+    <Content Include="Content\js\popup.js" />
+    <Content Include="Content\js\slides.min.jquery.js" />
+    <Content Include="Content\js\tiny.js" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\video\jwplayer.js" />
+    <Content Include="Content\video\player.swf" />
+    <Content Include="Content\video\welcome.mp4" />
+    <Content Include="Content\_assets\img\binocular_pencil.png" />
+    <Content Include="Content\_assets\img\cross.png" />
+    <Content Include="Content\_assets\img\first.png" />
+    <Content Include="Content\_assets\img\last.png" />
+    <Content Include="Content\_assets\img\next.png" />
+    <Content Include="Content\_assets\img\prev.png" />
+    <Content Include="Content\_assets\js\jquery-1.2.6.min.js" />
+    <Content Include="Content\_assets\js\jquery.tablesorter-2.0.3.js" />
+    <Content Include="Content\_assets\js\jquery.tablesorter.filer.js" />
+    <Content Include="Content\_assets\js\jquery.tablesorter.js" />
+    <Content Include="Content\_assets\js\jquery.tablesorter.pager.js" />
+    <Content Include="Content\_assets\themes\yui\asc.gif" />
+    <Content Include="Content\_assets\themes\yui\bg.gif" />
+    <Content Include="Content\_assets\themes\yui\desc.gif" />
+    <Content Include="Content\_assets\themes\yui\sprite.png" />
+    <Content Include="Content\_assets\themes\yui\style.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\AjaxLogin.js" />
+    <Content Include="Areas\PetUser\Views\User\BadgePage.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\PetProfile.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\PetChallenge.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\BadgesList.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\Rewards.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\BadgePage1.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\CreateChallenge.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Ad\Createbadge.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\AHome.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\badges.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\Challenges.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\Users.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\TweetCallback.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\TwitterHome.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\Index.cshtml" />
+    <Content Include="Areas\PetUser\Views\User\Editpetprofile.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\EditCh.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\EditBadge.cshtml" />
+    <Content Include="Content\fonts\ptscript-lightning-webfont.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fonts\ptscript-lightning-webfont.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fonts\ptscript-lightning-webfont.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Redemption\Views\Web.config" />
+    <Content Include="Areas\Dashboard\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Web.config" />
+    <Content Include="Areas\PetUser\Views\User\WallpaperList.cshtml" />
+    <Content Include="Content\rewards\PHC_Calender.pdf" />
+    <Content Include="Content\rewards\PHC_Wallpapers.zip" />
+    <None Include="Properties\PublishProfiles\Choyce-parallels.pubxml" />
+    <None Include="Properties\PublishProfiles\PHC-Choyce.pubxml" />
+    <None Include="Properties\PublishProfiles\PHC.pubxml" />
+    <None Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.4.js" />
+    <Content Include="Scripts\jquery-1.4.4.min.js">
+      <DependentUpon>jquery-1.4.4.js</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-1.6.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.2.js" />
+    <Content Include="Scripts\jquery-1.6.2.min.js">
+      <DependentUpon>jquery-1.6.2.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.min.js">
+      <DependentUpon>jquery-ui-1.8.11.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.8.21.custom.min.js" />
+    <Content Include="Scripts\jquery.ui.core.js" />
+    <Content Include="Scripts\jquery.ui.datepicker.js" />
+    <Content Include="Scripts\jquery.ui.widget.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js">
+      <DependentUpon>jquery.unobtrusive-ajax.js</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js">
+      <DependentUpon>jquery.validate.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js">
+      <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\knockout-2.0.0.debug.js" />
+    <Content Include="Scripts\knockout-2.0.0.js" />
+    <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Sitemaster.cshtml" />
+    <Content Include="Views\Shared\_AdminMaster.cshtml" />
+    <Content Include="Views\Home\fbConnect.cshtml" />
+    <Content Include="Views\Home\NoCookies.cshtml" />
+    <Content Include="Views\Shared\BadgeDetailModal.cshtml" />
+    <Content Include="Views\Shared\EarnedBadgeModal.cshtml" />
+    <Content Include="Views\Shared\ShareWidget.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\PetUser\Views\Shared\" />
+    <Folder Include="Areas\Redemption\Views\Shared\" />
+    <Folder Include="Content\Uploads\Challenges\" />
+    <Folder Include="obj\Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PHCBoot\PHCBoot.csproj">
+      <Project>{ba7793ce-6360-4eeb-a63d-80189fea00fb}</Project>
+      <Name>PHCBoot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHCData\PHCData.csproj">
+      <Project>{aacfb5db-ac1c-443d-bfa8-a5f95f9559fc}</Project>
+      <Name>PHCData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHCDto\PHCDto.csproj">
+      <Project>{f0663cff-4fef-4451-8ea0-7d49a3935c0e}</Project>
+      <Name>PHCDto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHCRepos\PHCRepos.csproj">
+      <Project>{52cad358-cac0-4782-be24-37d50b88302c}</Project>
+      <Name>PHCRepos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PHCService\PHCService.csproj">
+      <Project>{a3ce78fc-faca-419b-bdb7-33af611225bc}</Project>
+      <Name>PHCService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\PetUser\Views\Web.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55123</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:1830/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

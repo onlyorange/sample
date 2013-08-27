@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PET HEALTH CLUB</title>
+    
+     @Styles.Render("~/Content/themes/base/css")
+
+    <link href="@Url.Content("~/Content/css/normalize.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/style.css?v=1")" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+    
+    <script src="@Url.Content("~/Content/js/badge.js")?v=1"></script>
+    <script src="@Url.Content("~/Content/js/watermark.js")"></script>
+
+    <script src="@Url.Content("~/Content/js/slides.min.jquery.js")"></script>
+    <script type="text/javascript" src="@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
+
+
+    @RenderSection("head", required: false)
+
+    <script type="text/javascript">
+        // Load the SDK Asynchronously
+        (function (d) {
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
+    </script>
+   
+</head>
+
+<body>
+    <div id="header">
+        <div class="logo_container">
+            <a id="faq" href="@Url.Content("~/Faq")">FAQ</a>
+		    <div id="logo">Nature's Recipe - Pet Health Club</div>
+	    </div>
+        <div id="like_button">
+            <fb:like href="https://www.facebook.com/NaturesRecipe" send="false" layout="button_count" width="450" show_faces="false"></fb:like>
+        </div>
+    </div>
+    
+    @RenderBody()
+    
+    <div id="footer">
+        <a href="http://www.naturesrecipe.com" target="_blank"> Nature's Recipe</a>| 
+        <a href="https://s3.amazonaws.com/pethealthclub/Natures_Recipe_Pet_Health_Club.pdf" target="_blank"> Terms and Conditions</a>| 
+         <a href="https://s3.amazonaws.com/pethealthclub/Natures_Recipe_Pet_Health_Club_Contest_Rules.pdf" target="_blank"> Contest Rules</a>| 
+        <a href="http://www.delmontefoods.com/privacy.aspx" target="_blank"> Privacy Policy</a>|
+        <a href="@Url.Content("~/Faq")">FAQ</a>
+
+    </div>
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-34156221-3']);
+        _gaq.push(['_setDomainName', 'vm-fb.com']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <script src="@Url.Content("~/Content/js/share.js")"></script>
+</body>
+</html>

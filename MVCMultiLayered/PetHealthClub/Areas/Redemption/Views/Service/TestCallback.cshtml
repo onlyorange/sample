@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "TestCallback";
+}
+
+<h2>TestCallback</h2>
+
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+<script type="text/javascript">
+
+    $.post('ConfirmPrize',
+        {
+            "p": "CTYWLTCP"
+            , "f": "12818901"
+            , "s": "568D000F5E462D6C1EF6571CCD2CB5D539FD1A94C5B2F2DB697052FDE5DBA1C0"
+        }
+        , function(result) {
+            console.log(result);
+        }
+    );
+
+</script>

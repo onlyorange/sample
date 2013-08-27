@@ -1,0 +1,228 @@
+﻿@{
+   
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>PET HEALTH CLUB</title>
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head>
+@using (Html.BeginForm("Userlogin", "Home", FormMethod.Post))
+{
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="header-button">
+                    <a href="#">
+                        <img src="images/button-h.png" style="border: 0px;" />
+                    </a>
+                </div>
+
+            </div>
+            <div class="content">
+
+                <div style="float: left; margin-left: 150px;">
+                    <a href="#">
+                        <img src="images/back.png" />
+                    </a>
+                </div>
+                <div class="midslider2">
+
+
+                    <script>
+                        // Load the SDK Asynchronously
+                        (function (d) {
+                            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+                            if (d.getElementById(id)) { return; }
+                            js = d.createElement('script'); js.id = id; js.async = true;
+                            js.src = "//connect.facebook.net/en_US/all.js";
+                            ref.parentNode.insertBefore(js, ref);
+                        }(document));
+
+                        // Init the SDK upon load  
+                       
+                        window.fbAsyncInit = function () {
+                            FB.init({
+                                appId: '114356178711688',// App ID
+                                //secret: 'a41eb05e4588d6cf83ff451fd2b8b836',
+                                channelUrl: '//' + window.location.hostname + '/channel', // Path to your Channel File
+                                status: true, // check login status
+                                cookie: true, // enable cookies to allow the server to access the session
+                                xfbml: true  // parse XFBML
+                            });
+
+                            // listen for and handle auth.statusChange events
+                            FB.Event.subscribe('auth.statusChange', function (response) {
+                                if (response.authResponse) {
+                                    // user has auth'd your app and is logged into Facebook
+                                    var uid = "http://graph.facebook.com/" + response.authResponse.userID + "/picture";
+                                    FB.api('/me', function (me) {
+
+                                        document.getElementById('Email').innerHTML = me.email;
+                                        document.getElementById('first_name').innerHTML = me.first_name;
+                                        document.getElementById('last_name').innerHTML = me.last_name;
+                                        document.getElementById('gender').innerHTML = me.gender;                                    
+                                        document.getElementById('uid').innerHTML = me.id;
+                                        document.getElementById('token').innerHTML = response.authResponse.accessToken;                                      
+                                        document.getElementById('profileImg').src = uid;
+                                        detsave();                                      
+                                    })
+                                    document.getElementById('auth-loggedout').style.display = 'none';
+                                    document.getElementById('auth-loggedin').style.display = 'block';
+                                } else {
+                                    // user has not auth'd your app, or is not logged into Facebook
+                                    document.getElementById('auth-loggedout').style.display = 'block';
+                                    document.getElementById('auth-loggedin').style.display = 'none';
+                                }
+                            });
+                            $("#auth-logoutlink").click(function () { FB.logout(function () { window.location.reload(); }); });
+                        }
+
+                        function detsave() {
+                       
+                            var email = document.getElementById('Email').innerHTML;
+
+                            var firstname = document.getElementById('first_name').innerHTML;
+                            var lastname = document.getElementById('last_name').innerHTML;
+                            var gender = document.getElementById('gender').innerHTML;
+                          
+                            var fbid = document.getElementById('uid').innerHTML;
+                            var token = document.getElementById('token').innerHTML;
+                          
+
+                            save(firstname, lastname, gender,  fbid, token, email);
+
+                           
+                        }
+
+
+
+                        function save(firstname, lastname, gender,  fbid, token, email) {
+                          
+                            var test = firstname;
+
+                            $.ajax({
+                                type: "POST",
+
+                                url: "../Home/savedet/" + test + "?MN=" + lastname + "?" + gender + "?" +  fbid + "?" + token + "~" + email,
+                                success: function (post) {
+                                    alert(data);
+                                },
+                                dataType: "json",
+                                traditional: true
+                            });
+                           
+                        }
+                    </script>
+
+                    <div id="auth-status">
+                        <div id="auth-loggedout">
+                            <div style="width: 690px; margin-top: 20px; float: left">
+
+                                <div style="float: right; margin-right: 20px;">
+                                    <a href="@Url.Action("Index", "Home", null)" title="Go to Home">
+                                        <img src="@Url.Content("~/Content/images/house.png")" alt="" style="border: 0px;" />
+
+                                    </a>
+                                </div>
+                            </div>
+                            <div style="width: 690px; margin-left: 270px; margin-top: 20px; float: left">
+
+
+                                <div class="fb-login-button" autologoutlink="true" scope="email,user_checkins">
+                                    Login with Facebook
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="auth-loggedin" style="display: none">
+                            <div style="float: right; margin-right: 20px; width: 690px; text-align: right; margin-top: 10px; font-family: Verdana; font-size: 13px">
+
+                                <a href="#" id="auth-logoutlink">logout</a>
+                            </div>
+                            <div style="float: left; margin-right: 20px; width: 690px; text-align: left; margin-top: 10px; font-family: Verdana; font-size: 15px; font-weight: bold; color: #ff6a00; margin-left: 10px">My Profile</div>
+
+
+
+
+                            <div class="divblock">
+                                <div class="divblock-left">First Name:</div>
+                                <div class="divblock-right"><span id="first_name"></span></div>
+                            </div>
+
+
+
+                            <div class="divblock">
+                                <div class="divblock-left">Last Name:</div>
+                                <div class="divblock-right"><span id="last_name"></span></div>
+                            </div>
+
+                            <div class="divblock">
+                                <div class="divblock-left">Email:</div>
+                                <div class="divblock-right"><span id="Email"></span></div>
+                            </div>
+
+
+                            <div class="divblock">
+                                <div class="divblock-left">Profile Image:</div>
+                                <div class="divblock-right">
+                                    <img id="profileImg" />
+                                </div>
+                            </div>
+
+                            <div class="divblock">
+                                <div class="divblock-left">Gender:</div>
+                                <div class="divblock-right"><span id="gender"></span></div>
+                            </div>
+
+                          
+
+                           
+
+                            <div class="divblock" style="display: none">
+                                <div class="divblock-left">ID:</div>
+                                <div class="divblock-right"><span id="uid"></span></div>
+                            </div>
+
+                            <div class="divblock" style="display: none">
+                                <div class="divblock-left">Token:</div>
+                                <div class="divblock-right"><span id="token"></span></div>
+                            </div>
+
+                           
+
+
+                            <div class="divblock">
+                                <div class="divblock-left">&nbsp;</div>
+                                <div class="divblock-right">
+                                    <input type="submit" value="Next" class="button orange small" />
+
+
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="clr1">&nbsp; </div>
+
+
+            </div>
+        </div>
+
+
+
+    </body>
+}
+</html>
+

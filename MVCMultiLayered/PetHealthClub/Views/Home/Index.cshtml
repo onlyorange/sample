@@ -1,0 +1,116 @@
+﻿
+@model PetHealthClub.Models.SignupViewModel
+@{
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+@section head {
+    <script src="@Url.Content("~/Content/js/slides.min.jquery.js")"></script>
+    <script src="@Url.Content("~/Content/video/jwplayer.js")"></script>
+    <script>
+        @if( ViewBag.SkipFbLogin ) {
+            <text>var skipFbLogin = true;</text>
+        } else {
+            <text>var skipFbLogin = false;</text>
+        }
+
+        // Init the SDK upon load  git 
+        window.fbAsyncInit = function () {
+
+            FB.init({ appId: '@ViewBag.appId', status: true, cookie: true, xfbml: true });
+
+            if( skipFbLogin ) {
+                $('#loading').hide();
+                $('#page_content').show();
+            } else {
+                FB.getLoginStatus(function (response) {
+
+                    if (response.status === 'connected') {
+                        document.location = '@Url.Content("~/Home/FacebookSetToken/")?token='
+                            + response.authResponse.accessToken
+                            + "&fbid=" + response.authResponse.userID
+                        ;
+                    } else {
+                        $('#loading').hide();
+                        $('#page_content').show();
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function () {
+
+            ApplyWatermark('#pet_name', "Pet's Name");
+
+            $('#lets_go').click(function () {
+                ClearWatermark('#pet_name', "Pet's Name");
+                _gaq.push(['_trackEvent', 'Clicks', 'Landing Page', 'LP_button_start']);
+                return true;
+            });
+            
+            
+
+            var videoPath = "@Url.Content("~/Content/video/")";
+            jwplayer("video_player").setup({
+                flashplayer: videoPath + "player.swf",
+                autostart: false, // true  -- TODO -- uncomment
+                file: videoPath + "welcome.mp4",
+                //image: "images/default.png",
+                height: 356,
+                width: 517
+            });
+
+            jwplayer().onComplete(function () {
+                _gaq.push(['_trackEvent', 'Clicks', 'Video Player', 'Watched video till end']);
+        
+            });
+
+            jwplayer().onPlay(function () {
+                _gaq.push(['_trackEvent', 'Clicks', 'Video Player', 'Video Played']);
+
+            });
+
+            jwplayer().onPause(function () {
+                _gaq.push(['_trackEvent', 'Clicks', 'Video Player', 'Video Paused']);
+
+            });
+
+        });
+    </script>
+}
+
+<div id="fb-root"></div>
+    
+<div class="content">
+    <div id="loading">loading..</div>
+    <div id="page_content" style="display:none;">
+        <div id="get_started" class="clearfix">
+		    <span>Get Started: </span>
+            @using (Html.BeginForm("Signup", "Home", FormMethod.Post, new { @id = "get_started_form" })) {
+		        @Html.TextBoxFor(model => model.PetName, new { @id = "pet_name", value = "Pet's Name" })
+                @Html.ValidationMessageFor(model => model.PetName)
+
+                @Html.DropDownListFor(model => model.PetType, Model.PetType, new { @id = "pet_is" })
+            
+                <input type="submit" id="lets_go" value="" />
+            }
+	    </div>            
+                      
+	    <div class="white_container">
+		    <div id="landing_main" class="clearfix">
+			    <div class="welcome">
+				    <h3>Pet Health Club</h3>
+				    <p>Welcome! Join Pet Health Club and get more than just a healthy lifestyle.</p>
+				    <p><strong>Watch our video to learn more!</strong></p>
+				    <img src="@Url.Content("~/Content/images/landing.png")" class="grass"/>
+			    </div>
+			    <div class="video">
+                    <div id="video_player">Loading the player ...</div>   
+			    </div>
+		    </div>
+	    </div>
+	    
+        <div id="landing_steps" class="white_container">
+		    <img src="@Url.Content("~/Content/images/landing_steps.png")" alt="Fill out your paws pass. Take Challenges with your Pet. Earn badges and rewards." title="Get started!" class="no_select" />
+	    </div>
+    </div>
+</div>

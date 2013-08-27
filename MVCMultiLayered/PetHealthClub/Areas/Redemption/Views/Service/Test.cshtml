@@ -1,0 +1,24 @@
+﻿@model PetHealthClub.Areas.Redemption.Models.TestViewModel
+@{
+    ViewBag.Title = "Test";
+}
+
+<h2>Test</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>User: </td>
+            <td>@Html.DropDownListFor( u => Model.FacebookId, Model.UserList)</td>
+        </tr>
+        <tr>
+            <td>Prize:</td>
+            <td>@Html.DropDownListFor(p => Model.PinId, Model.PinList)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Redeem Reward" /></td>
+        </tr>
+    </table>
+}

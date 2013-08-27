@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "TwitterHome";
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+<script src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+
+<div class="content" style="overflow: hidden">
+    <div class="clr">&nbsp; </div>
+
+    <div class="midslider3">
+        @using (Html.BeginForm("TwitterHome", "User", FormMethod.Post, new { area = "PetUser" }))
+        {
+            <div>
+
+                <script>
+                    function savetweet() {
+                        var twet = document.getElementById('txtTweet').value;
+                      //  alert(twet);
+                        $.ajax({
+                            type: "POST",
+
+                            url: "../User/savetweet/" + twet,
+                            success: function (post) {
+                                alert(data);
+                            },
+                            dataType: "json",
+                            traditional: true
+                        });
+                    }
+
+                    function logintweet() {
+                        $.ajax({
+                            type: "POST",
+
+                            url: "../User/logintweet/",
+                            success: function (post) {
+                                alert(data);
+                            },
+                            dataType: "json",
+                            traditional: true
+                        });
+                    }
+                </script>
+                <div style="width: 100%; float: left; font-size: 22px; font-family: Calibri; font-weight: bold; color: #00ACEE; padding-left: 30px">Welcome!</div>
+
+                @{
+            bool Access = Convert.ToBoolean(ViewData["Access"]);
+                }
+                 @if (Access == true)
+                 {
+                    <div class="clr"></div>
+                    <div class="divblock" style="text-align: center">
+            <h2>Authorization Granted</h2>
+            <p>
+                Your Twitter account has been configured to connect to this application! Your tweet has been posted.
+            </p>
+            
+        </div>
+
+
+                                       
+            
+                 }
+                 else
+                 {
+                    <div class="divblock" style="text-align: center">
+                        <div id="pnlAuthorize" class="noteBox">
+                            <p><b style="font-size: 16px; font-weight: bold; color: #00ACEE; font-family: Calibri">Your Twitter Account is Not Connected!</b></p>
+                            <p style="font-size: 14px; font-style: italic; font-family: Calibri; padding-left: 10px; line-height: 30px">
+                                Before you can post a tweet to your Twitter account from this website you first need to
+            connect it to this application. To do so, click the button below...
+                            </p>
+                            <p>
+                                <a href="@Url.Action("logintweet", "User", null)" title="fbConnect" >
+
+                                    <img id="img" src="~/Content/images/Sign-in-with-Twitter-lighter.png" /></a>
+                            </p>
+                        </div>
+                    </div>
+                 }
+                <p>
+                </p>
+            </div>
+        }
+               
+                <p>
+                </p>
+            </div>
+        }
+    </div>
+
+
+</div>

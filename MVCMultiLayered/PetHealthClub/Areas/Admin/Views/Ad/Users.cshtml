@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PHCDto.DTO.FbDTO>
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_AdminMaster.cshtml";
+}
+
+<script src="@Url.Content("~/Content/_assets/js/jquery.tablesorter-2.0.3.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/_assets/js/jquery.tablesorter.filer.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Content/_assets/js/jquery.tablesorter.pager.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tableOne").tablesorter({ debug: false, sortList: [[0, 0]], widgets: ['zebra'] })
+                    .tablesorterPager({ container: $("#pagerOne"), positionFixed: false, size: 10 })
+                    .tablesorterFilter({
+                        filterContainer: $("#filterBoxOne"),
+                        filterClearContainer: $("#filterClearOne"),
+                        filterColumns: [0, 1, 2, 3],
+                        filterCaseSensitive: false
+                    });
+    });
+</script>
+
+
+
+<div style="width: 100%; float: left; margin-top: 50px">
+    <div style="width: 100%; float: left; font-size: 16px; font-weight: bold; color: #111; padding-left: 30px">Users List</div>
+
+     @if(TempData["Success"] != null)
+            {                            
+                <span class="DisplayMessage111">@TempData["Success"]</span> 
+            }
+
+    <div style="float: left; width: 100%; margin-top: 10px">
+        <table id="tableOne" style="margin-left: 30px; float: left">
+
+            <thead>
+                <tr style="background-color: #E1ECF9">
+                    <td colspan="5" style="text-align: right">Search:
+                            <input id="filterBoxOne" value="" maxlength="30" size="30" type="text" />
+                        <img id="filterClearOne" src="@Url.Content("~/content/_assets/img/cross.png")" title="Click to clear filter."
+                                alt="Clear Filter Image" />
+                    </td>
+                </tr>
+                <tr style="background-color: #B78353; width: 100%; height: 25px">
+                    <th style="width: 250px; text-align: left; padding-left: 5px"><a href="#" style="color: #fff; font-weight: bold">Email</a>
+                    </th>
+                    <th style="width: 150px; text-align: left; padding-left: 5px"><a href="#" style="color: #fff; font-weight: bold">First Name</a>
+                    </th>
+
+                    <th style="width: 100px; text-align: left; padding-left: 5px"><a href="#" style="color: #fff; font-weight: bold">Last Name</a>
+                    </th>
+                    <th style="width: 50px; text-align: left; padding-left: 5px"><a href="#" style="color: #fff; font-weight: bold">Gender</a>
+                    </th>
+                    <th style="width: 50px; text-align: left; padding-left: 5px"><a href="#" style="color: #fff; font-weight: bold">Delete</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="height: 30px">
+                        <td style="width: 250px; text-align: left; padding-left: 5px">
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td style="width: 150px; text-align: left; padding-left: 5px">
+                            @Html.DisplayFor(modelItem => item.Fname)
+                        </td>
+
+                        <td style="width: 150px; text-align: left; padding-left: 5px">
+                            @Html.DisplayFor(modelItem => item.Lname)
+                        </td>
+                        <td style="width: 50px; text-align: left; padding-left: 5px">
+                            @Html.DisplayFor(modelItem => item.Sex)
+                        </td>
+                        <td style="width: 100px; text-align: left; padding-left: 5px">
+                            @Html.ActionLink("Delete", "DeleteUser", new { id = item.UID }, new { onclick = "return confirm('Do you want to delete this user?');" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr id="pagerOne" style="background-color: #E1ECF9">
+                    <td align="center" style="font-size: 9pt;" colspan="5">Page:
+                            <img src="@Url.Content("~/Content/_assets/img/first.png")" class="first" />
+                        <img src="@Url.Content("~/Content/_assets/img/prev.png")" class="prev" />
+                        <input type="text" class="pagedisplay" />
+                        <img src="@Url.Content("~/Content/_assets/img/next.png")" class="next" />
+                        <img src="@Url.Content("~/Content/_assets/img/last.png")" class="last" />
+                        <select class="pagesize">
+                            <option selected="selected" value="5">10</option>
+                            <option value="20">20</option>
+                            <option value="35">30</option>
+                            <option value="40">40</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp; </td>
+
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>

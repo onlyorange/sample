@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PET HEALTH CLUB</title>
+    @System.Web.Optimization.Styles.Render("~/Content/themes/base/css", "~/Content/css")
+
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+    <script src="@Url.Content("~/Content/js/slides.min.jquery.js")"></script>
+    <script type="text/javascript" src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="mainheader">
+            <div class="header-button">
+                <a href="#"></a>
+            </div>
+
+        </div>
+        <div id="menu" style="float: left; margin-left: 140px">
+            <div class="menucontainer">
+                <ul id="topnav" style="left: 0px; top: 0px">
+                    <li class="active">
+                        @Html.ActionLink("Home", "AHome")</li>
+                    <li>
+                        @Html.ActionLink("Users", "Users")</li>
+
+
+                    <li><a href="#">Badges</a> <span>
+                        @Html.ActionLink("Add ", "Createbadge")
+                        |
+                        @Html.ActionLink("View ", "Badges")
+                    </span></li>
+
+                    <li><a href="#">Weekly Challenges</a> <span>
+                        @Html.ActionLink("Add ", "CreateChallenge")
+                        |
+                        @Html.ActionLink("View ", "Challenges")
+                    </span></li>
+
+                     <li><a href="#">Wallpapers</a> <span>
+                        @Html.ActionLink("Add ", "Wallpaper")
+                        |
+                        @Html.ActionLink("View ", "WallList")
+                    </span></li>
+
+                    <li>@Html.ActionLink("Logout ", "Index")</li>
+                </ul>
+            </div>
+        </div>
+        <div class="content" style="overflow: hidden">
+            <div class="clr">&nbsp; </div>
+
+            <div class="midslider3">
+                @RenderBody()
+            </div>
+
+
+        </div>
+    </div>
+</body>
+</html>

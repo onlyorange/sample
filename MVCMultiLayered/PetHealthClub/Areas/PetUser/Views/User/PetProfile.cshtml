@@ -1,0 +1,1021 @@
+﻿@model PHCDto.DTO.ProfileDTO
+@{
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+@section head {
+
+    <script type="text/javascript" src="@Url.Content("~/Content/js/jquery.reveal.js")"></script>
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/reveal.css")">
+
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+    <script type="text/javascript" src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
+
+    <style type="text/css">
+        .sizeXY
+        {
+            width: 320px;
+            float: left;
+        }
+
+    </style>
+
+
+    <script type="text/javascript">
+
+        window.fbAsyncInit = function () {
+            FB.init({ appId: '@PetHealthClub.Helpers.ConfigurationHelper.FacebookAppId', status: true, cookie: true, xfbml: true });
+            FB.Canvas.setAutoGrow();
+        }
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                try
+                {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+
+                        var file = $('input[type="file"]').val();
+                        var exts = ['jpg', 'gif', 'png', 'bmp', 'jpeg'];
+                        // first check if file field has any value
+                        if (file) {
+                            // split file name at dot
+                            var get_ext = file.split('.');
+                            // reverse name to check extension
+                            get_ext = get_ext.reverse();
+                            // check file type is valid as given in 'exts' array
+                            if ($.inArray(get_ext[0].toLowerCase(), exts) > -1) {
+                                $('#PetImg').attr('src', e.target.result);
+                                $('#pimg1').val(e.target.result);
+                            } else {
+                                $('#PetImg').attr('src', "../../Content/images/Noimage1.jpg");
+                                $('#pimg1').val("");
+                                // alert(e.target.result);
+                                alert('Invalid file format!');
+                            }
+                        }
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+
+                } catch (e) {
+                    ; // do nothing?
+                }
+            } else if ($("#Uploadfile").val()) { // this populates the value for non FileReader browsers
+                $('#pimg1').val($("#Uploadfile").val());
+                $('#PetImg').attr('src', $("#Uploadfile").val());
+            }
+        }
+    </script>
+
+
+<script type="text/javascript">
+    var count = 0;
+    $(document).ready(function () {
+
+        if (count == 0) {
+            $("#slides-s").css({ opacity: 0.3 });
+            $("#slides-s :input").attr({ 'disabled': true });
+            $("#btnid").css({ opacity: 1 });
+            $("#btnid :input").attr({ 'disabled': false });
+            $("#upfile2").unbind('click');
+
+        }
+
+        $("#btnid").click(function () {
+            count++;
+            document.getElementById('podog1').checked = true;
+            document.getElementById('pocat1').checked = false;
+            document.getElementById('lblpcid1').value = 1;
+            document.getElementById("imgdog1").style.opacity = "25.0";
+            document.getElementById("imgcat1").style.opacity = "0.4";
+
+            $("#btnid").hide();
+            $("#slides-s").css({ opacity: 1 });
+            $("#slides-s :input").attr({ 'disabled': false });
+            $("#upfile2").bind('click', function () {
+                $("#Uploadfile2").trigger('click');
+            });
+        });
+
+        //
+        // check for fileReader
+        try
+        {
+            var fr = new FileReader();
+        }
+        catch (e) {
+            $('#upfile1').hide();
+            $('.upload_text').show();
+            $('#Uploadfile').show();
+
+            if ($('#upfile2') != null) {
+                $('#upfile2').hide();
+                $('#Uploadfile2').show();
+            }
+        }
+    });
+</script>
+
+
+    <script type="text/javascript">
+    function readURL2(input) {
+        if (input.files && input.files[0])
+        {
+            try
+            {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#PetImg2').attr('src', e.target.result);
+                    $('#pimg2').val(e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            } catch (e) {
+                $('#pimg2').val('image'); // set as valid
+            }
+        }
+        else if( input[0] )
+            $('#pimg2').val('image'); // set as valid -- IE mostly
+    }
+    function share() {
+
+        FB.ui({
+            method: "feed",
+            link: "https://apps.facebook.com/pethealthclub/",
+            picture: "http://pethealthclub.vm-fb.com/Content/images/PetHealthClub.png",
+            name: "PET HEALTH CLUB",
+            caption: "I just unlocked a badge from Pet Health Club! I'm one step closer to winning free Nature’s Recipe and getting healthier with my pet!"
+        });
+    }
+</script>
+
+    <style>
+        #backgroundPopup
+        {
+            display: none;
+            position: fixed;
+            _position: absolute; /* hack for internet explorer 6*/
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: #000000;
+            z-index: 1;
+        }
+
+        .logon-text
+        {
+            float: right;
+            font-size: 14px;
+            margin-right: 5px;
+            margin-top: 8px;
+        }
+
+            .logon-text a
+            {
+                color: #333;
+                text-decoration: none;
+            }
+
+        input[type=text]:focus, input[type=password]:focus:focus
+        {
+            outline: none;
+            border-color: rgba(82,168,236,.75)!important;
+            box-shadow: 0 0 8px rgba(82,168,236,.5);
+            -moz-box-shadow: 0 0 8px rgba(82,168,236,.5);
+            -webkit-box-shadow: 0 0 8px rgba(82,168,236,.5);
+        }
+
+        .login123
+        {
+            width: 814px;
+            min-height: 454px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .log-bg
+        {
+            float: right;
+            width: 814px;
+            min-height: 454px;
+        }
+
+        .block1
+        {
+            float: left;
+            width: 340px;
+            height: auto;
+            margin-top: 10px;
+            margin-left: 25px;
+        }
+
+        .user
+        {
+            float: left;
+            font-size: 14px;
+            color: #069;
+        }
+
+        .user1
+        {
+            float: left;
+            font-size: 14px;
+            margin-top: 4px;
+            color: #069;
+        }
+
+            .user1 a
+            {
+                color: #069;
+                text-decoration: none;
+            }
+
+                .user1 a:hover
+                {
+                    color: #000;
+                    text-decoration: none;
+                }
+
+        .inp1
+        {
+            border: 1px solid #999;
+            width: 270px;
+            height: 22px;
+            padding-left: 5px;
+        }
+
+        .log-tex
+        {
+            float: left;
+            font-size: 24px;
+            margin-left: 25px;
+            margin-top: 30px;
+        }
+        #slides {
+            width: 807px !important;
+            height:379px !important;
+        }
+        #profileContainer {
+        
+        }
+        .slides_container {
+            width: 807px !important;
+            height: 419px !important;
+        }
+        .midslider {
+            height: 399px !important;
+        }
+        .right-c {
+            margin-top: 15px;
+        }
+    
+    </style>
+ }
+
+
+@using (Html.BeginForm("PetProfile", "User", FormMethod.Post, new { area = "PetUser", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true) 
+    <div class="content">
+        <div style="float: left; margin-left: 96px;">
+            <a href="@Url.Content("~/PetUser/User/BadgePage1")" class="back_to_dashboard" style="">
+                    
+            </a>
+        </div>
+            @if(TempData["Success"] != null)
+        {                            
+            <span class="DisplayMessage">@TempData["Success"]</span> 
+        }
+
+        <div class="midslider">
+            <div id="profileContainer">
+                <div>
+                    <div>
+                        <div class="slides_container">
+
+                            <div class="slide" id="membership">
+                                <div class="left-ccc">
+                                    <p class="head-texcc">
+
+                                        <img id="PetImg" name="PetImg" src="@Model.PetImage" width="203" />
+
+                                        @Html.TextBoxFor(model => model.pimg, new { @id = "pimg1", hidden = true, style = "display:none;" })
+                                        @Html.ValidationMessageFor(model => model.PetImage)
+                                        <br />
+                                        <div id="upfile1" class="upload_photo" style="cursor:pointer; float:left; margin-left:15px;"></div>
+                                        <div class="upload_text" style="display:none;">Upload new photo:</div>
+                                        <input type="file" name="Uploadfile" id="Uploadfile" size="8" style="display:none;" onchange="readURL(this);" />
+                                        @Html.ValidationMessageFor(model => model.pimg)
+                                        @Html.ValidationMessageFor(model => model.PetImage)
+
+                                    </p>
+                                    <p class="white-tcc">
+                                    </p>
+                                    <p class="white-t">
+                                    </p>
+                                    <script>
+                                        $("#upfile1").click(function () {
+                                            $("#Uploadfile").trigger('click');
+                                        });
+                                    </script>
+                                </div>
+
+                                <div class="right-c">
+
+                                    <div style="float: left; width: 550px;">
+                                        <div style="float: left; width: 370px">
+                                            <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                    Name:
+                                                </div>
+                                                <div style="float: left; width: 230px; text-align: left;">
+                                                    @Html.TextBoxFor(model => model.PetName, new { @id = "txtpname", @Class = "inp-round1 ptScript membershipInput" })
+                                                    @Html.ValidationMessageFor(model => model.PetName)
+                                                    @Html.HiddenFor(model => model.PID)
+                                                </div>
+                                            </div>
+
+                                            <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                    From:
+                                                </div>
+                                                <div style="float: left; width: 230px; text-align: left">
+                                                    @Html.TextBoxFor(model => model.Location, new { @Class = "inp-round1 ptScript membershipInput" })
+                                                    @Html.ValidationMessageFor(model => model.Location)
+                                                </div>
+                                            </div>
+
+                                            <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                    Date of Birth:
+                                                </div>
+                                                <div style="float: left; width: 230px; text-align: left">
+                                                    @Html.TextBoxFor(model => model.DOBDate, new { id = "DOB", @Class = "inp-round1 ptScript membershipInput", onkeypress="return false;" })
+                                                    <script>
+                                                        $(function () {
+                                                            $("#DOB").datepicker({
+                                                                changeMonth: true,
+                                                                changeYear: true,
+                                                                yearRange: "-30:+0"
+
+                                                            });
+                                                        });
+                                                    </script>
+
+                                                    @Html.ValidationMessageFor(model => model.DOBDate)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="float: right; width: 180px">
+                                            <div id="basic1" style="padding:0; border: 0px; float:left; margin-right:10px;" onclick="chkdog()">
+                                                <img src="@Url.Content("~/Content/images/small_dog_1.png")" id="imgdog"   /></div>
+                                            <div id="advanced1" style="padding:0; border: 0px;" onclick="chkcat()">
+                                                <img src="@Url.Content("~/Content/images/small_dog_2.png")" id="imgcat"  /></div>
+                                            <script type="text/javascript">
+                                                window.onload = function () {
+
+                                                    if (document.getElementById('lblpcid').value == 1) {
+                                                        document.getElementById('podog').checked = true;
+                                                        document.getElementById('pocat').checked = false;
+                                                        document.getElementById("imgdog").style.opacity = "25.0";
+                                                        document.getElementById("imgdog").style.filter = "alpha(opacity=250)";
+                                                        document.getElementById("imgcat").style.opacity = "0.4";
+                                                        document.getElementById("imgcat").style.filter = "alpha(opacity=40)";
+                                                        $("#basic1").unbind('click');
+                                                        $("#advanced1").unbind('click');
+                                                    }
+
+                                                    else if (document.getElementById('lblpcid').value == 2) {
+                                                        document.getElementById('podog').checked = false;
+                                                        document.getElementById('pocat').checked = true;
+                                                        document.getElementById("imgcat").style.opacity = "25.0";
+                                                        document.getElementById("imgcat").style.filter = "alpha(opacity=250)";
+                                                        document.getElementById("imgdog").style.opacity = "0.4";
+                                                        document.getElementById("imgdog").style.filter = "alpha(opacity=40)";
+                                                        $("#basic1").unbind('click');
+                                                        $("#advanced1").unbind('click');
+                                                    }
+
+                                                    else {
+                                                        $("#basic1").bind('click', function () {
+
+                                                            chkdog();
+                                                        });
+                                                        $("#advanced1").bind('click', function () {
+                                                            chkcat();
+                                                        });
+                                                    }
+                                                };
+                                            </script>
+
+                                            <script type="text/javascript">
+
+                                                function chkdog() {
+
+                                                    document.getElementById("div1").style.display = "none";
+
+                                                    if (document.getElementById("basic1").click) {
+
+                                                        document.getElementById('podog').checked = true;
+                                                        document.getElementById('pocat').checked = false;
+                                                        document.getElementById('lblpcid').value = 1;
+                                                        document.getElementById("imgdog").style.opacity = "25.0";
+                                                        document.getElementById("imgcat").style.opacity = "0.4";
+                                                    }
+                                                }
+
+                                                function chkcat() {
+
+                                                    document.getElementById("div1").style.display = "none";
+
+                                                    if (document.getElementById("advanced1").click) {
+
+                                                        document.getElementById('podog').checked = false;
+                                                        document.getElementById('pocat').checked = true;
+                                                        document.getElementById('lblpcid').value = 2;
+                                                        document.getElementById("imgcat").style.opacity = "25.0";
+                                                        document.getElementById("imgdog").style.opacity = "0.4";
+                                                    }
+                                                }
+
+
+
+                                            </script>
+                                        </div>
+                                        <div id="div2" style="display: none">
+                                            <input id="podog" name="poBoxRadio" type="radio" value="No" />
+                                            <input id="pocat" name="poBoxRadio" type="radio" value="No" />
+                                            @Html.TextBoxFor(model => model.pcid, new { @id = "lblpcid" })
+                                        </div>
+                                    </div>
+
+                                    <div style="float: left; width: 550px; margin-bottom: 15px">
+                                        <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                            About:
+                                        </div>
+                                        <div style="float: left; width: 350px; text-align: left">
+                                            @Html.TextAreaFor(model => model.About, new { @Style = "width:170px; padding-left:5px;", @class = "inp-roundmulti ptScript membershipInput" })
+                                            @Html.ValidationMessageFor(model => model.About)
+                                        </div>
+                                    </div>
+                                    <!--
+                                        temp remove
+                                    <div style="float: left; width: 550px; margin-bottom: 15px">
+                                        <div style="float: left; width: 100px; margin-left: 20px">
+                                            Favorite Product:
+                                        </div>
+                                        <div style="float: left; width: 350px; text-align: left">
+                                            @Html.TextBoxFor(model => model.FavProduct, new { @Class = "inp-round1 ptScript membershipInput" })
+                                            @Html.ValidationMessageFor(model => model.FavProduct)
+                                        </div>
+
+                                    </div>
+
+                                    <div style="width: 100%; text-align: center; font-size: 18px;">
+                                        <div class="social_icons" style="margin: 0px auto; width: 180px" id="divsicon">
+                                            <a class="fb" id="fblink"></a>
+                                            <a class="tw" ></a>
+                                            <a class="pin"></a>
+                                        </div>
+
+                                        <div id="share_badge">
+                                                <div class="badge_icon"><img src="@Url.Content("~/Content/Uploads/Challenges/small_share_badge.png")" width="45" height="45" style="vertical-align:bottom"  /></div>
+                                                <div class="description regularFont">Congrats! You've earned the Share The Wellness badge!</div>
+                                        </div>
+
+                                        <div id="share_badge_all">
+                                                <div class="badge_icon"><img src="@Url.Content("~/Content/Uploads/Challenges/super_share_badge.png")" width="45" height="45" style="vertical-align:bottom"  /></div>
+                                                <div class="description regularFont">Congrats! You've earned the Super Sharer badge!</div>
+                                        </div>
+                                    </div>
+                                    <a href="#" id="hdfebid" style="display:none"></a>
+                                    <input type="hidden" name="first_share_badge" id="first_share_badge" value="0" />
+                                    <input type="hidden" name="super_share_badge" id="super_share_badge" value="0" />
+                                    -->
+                                        
+                                    <div style="float: left; width: 550px; margin-bottom: 15px">
+                                        <div style="float: right; width: 420px; margin-top:20px; text-align: right">
+                                            <!--
+                                            <div class="smsIcons" style="float:left; margin-top:4px;">
+                                                <a class="fb" id="fblink" onclick="share();">
+
+                                                </a>
+
+                                                <a class="tw" target="_blank" href="http://twitter.com/intent/tweet?source=webclient&text=I just unlocked a PetHealthClub badge with my pet! Join the club and you can win free from NaturesRecipe! https://apps.facebook.com/pethealthclub/">
+                        
+                                                </a>
+
+                                                    
+                                                <a target="_blank" href="http://pinterest.com/pin/create/button/?url=https://apps.facebook.com/pethealthclub&amp;media=http://pethealthclub.vm-fb.com/Content/images/PetHealthClub.png&amp;description=I just unlocked a badge from Pet Health Club! I'm one step closer to winning free Nature’s Recipe and getting healthier with my pet!" class="pin-it-button pin" count-layout="horizontal" target="_blank" >
+                                                       
+                                                </a>
+                                            </div>
+                                            -->
+                                            <button id="submit" name="Update" value="Update" style="border:none; background:none; cursor: pointer;">
+                                                <div class="save" style="float:right;"></div>
+                                            </button>
+
+                                            <script>
+                                                $(function () {
+                                                    $('#submit').click(function () {
+                                                        $("#slides-s :input").attr({ 'disabled': true });
+
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="clr1">&nbsp; </div>
+
+
+        </div>
+
+        <div class="clr">&nbsp; </div>
+
+
+        @if (Model.ldto.Count > 0)
+        {
+            for (int p = 0; p < Model.ldto.Count; p++)
+            {
+            <div class="midslider">
+            <div id="profileContainer">
+                <div>
+                    <div>
+                        <div class="slides_container">
+
+                            <div class="slide" id="membership">
+                                    <div class="left-ccc">
+                                        <p class="head-texcc">
+
+                                            <img id="PetImglist" name="PetImglist" src="@Model.ldto[p].PetImage" width="203" />
+
+                                              
+                                        </p>
+                                        <p class="white-tcc">
+                                        </p>
+                                        <p class="white-t">
+                                            @Html.ActionLink("Delete", "Delete", new { id = Model.ldto[p].PID}, new { onclick = "return confirm('Do you want to delete this Pet?');", @class = "DeleteImg"  })
+
+                                               
+                                        </p>
+                                    </div>
+
+                                    <div class="right-c">
+
+                                        <div style="float: left; width: 550px;">
+                                            <div style="float: left; width: 370px">
+                                                <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        Name:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left;">
+                                                        @Html.TextBoxFor(model => model.ldto[p].PetName, new { @id = "txtpnamelist", @Class = "inp-round1 ptScript membershipInput" })
+                                                        @Html.ValidationMessageFor(model => model.ldto[p].PetName)
+                                                        @Html.HiddenFor(model => model.ldto[p].PID)
+                                                    </div>
+                                                </div>
+
+                                                <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        From:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left">
+                                                        @Html.TextBoxFor(model => model.ldto[p].Location, new { @Class = "inp-round1 ptScript membershipInput" })
+                                                        @Html.ValidationMessageFor(model => model.ldto[p].Location)
+                                                    </div>
+                                                </div>
+
+                                                <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        Date of Birth:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left">
+                                                        @Html.TextBoxFor(model => model.ldto[p].DOBDate, new { id = "DOBlist", @Class = "inp-round1 ptScript membershipInput", onkeypress="return false;" })
+                                                        <script>
+                                                            $(function () {
+                                                                $("#DOB").datepicker({
+                                                                    changeMonth: true,
+                                                                    changeYear: true,
+                                                                    yearRange: "-30:+0"
+
+                                                                });
+                                                            });
+                                                        </script>
+
+                                                        @Html.ValidationMessageFor(model => model.ldto[p].DOBDate)
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <div style="float: right; width: 180px">
+                                                <div id="basic1" style="border: 0px; padding:0; float:left; margin-right:10px;" >
+                                                    <img src="@Url.Content("~/Content/images/small_dog_1.png")" id="imgdoglist"   /></div>
+                                                <div id="advanced1" style="border: 0px; padding:0;" >
+                                                    <img src="@Url.Content("~/Content/images/small_dog_2.png")" id="imgcatlist"  /></div>
+                                                <script type="text/javascript">
+                                                    window.onload = function () {
+
+                                                        if (document.getElementById('lblpcid').value == 1) {
+                                                            document.getElementById('podog').checked = true;
+                                                            document.getElementById('pocat').checked = false;
+                                                            document.getElementById("imgdog").style.opacity = "25.0";
+                                                            document.getElementById("imgdog").style.filter = "alpha(opacity=250)";
+                                                            document.getElementById("imgcat").style.opacity = "0.4";
+                                                            document.getElementById("imgcat").style.filter = "alpha(opacity=40)";
+                                                            $("#basic1").unbind('click');
+                                                            $("#advanced1").unbind('click');
+                                                        }
+
+                                                        else if (document.getElementById('lblpcid').value == 2) {
+                                                            document.getElementById('podog').checked = false;
+                                                            document.getElementById('pocat').checked = true;
+                                                            document.getElementById("imgcat").style.opacity = "25.0";
+                                                            document.getElementById("imgcat").style.filter = "alpha(opacity=250)";
+                                                            document.getElementById("imgdog").style.opacity = "0.4";
+                                                            document.getElementById("imgdog").style.filter = "alpha(opacity=40)";
+                                                            $("#basic1").unbind('click');
+                                                            $("#advanced1").unbind('click');
+                                                        }
+
+                                                        else {
+                                                            $("#basic1").bind('click', function () {
+
+                                                                chkdog();
+                                                            });
+                                                            $("#advanced1").bind('click', function () {
+                                                                chkcat();
+                                                            });
+
+                                                        }
+
+                                                    };
+                                                </script>
+
+                                                <script type="text/javascript">
+
+                                                    function chkdog() {
+
+                                                        document.getElementById("div1").style.display = "none";
+
+                                                        if (document.getElementById("basic1").click) {
+
+                                                            document.getElementById('podog').checked = true;
+                                                            document.getElementById('pocat').checked = false;
+                                                            document.getElementById('lblpcid').value = 1;
+                                                            document.getElementById("imgdog").style.opacity = "25.0";
+                                                            document.getElementById("imgcat").style.opacity = "0.4";
+                                                        }
+                                                    }
+
+                                                    function chkcat() {
+
+                                                        document.getElementById("div1").style.display = "none";
+
+                                                        if (document.getElementById("advanced1").click) {
+
+                                                            document.getElementById('podog').checked = false;
+                                                            document.getElementById('pocat').checked = true;
+                                                            document.getElementById('lblpcid').value = 2;
+                                                            document.getElementById("imgcat").style.opacity = "25.0";
+                                                            document.getElementById("imgdog").style.opacity = "0.4";
+                                                        }
+                                                    }
+
+
+
+                                                </script>
+                                            </div>
+                                            <div id="div2" style="display: none">
+                                                <input id="podog" name="poBoxRadio" type="radio" value="No" />
+                                                <input id="pocat" name="poBoxRadio" type="radio" value="No" />
+                                                @Html.TextBoxFor(model => model.ldto[p].pcid, new { @id = "lblpcid" })
+                                            </div>
+                                        </div>
+
+                                            
+
+                                        <div style="float: left; width: 550px; margin-bottom: 15px">
+                                            <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                About:
+                                            </div>
+                                            <div style="float: left; width: 350px; text-align: left">
+                                                @Html.TextAreaFor(model => model.ldto[p].About, new { @Style = "width:170px; padding-left:5px;", @class = "inp-roundmulti ptScript membershipInput" })
+                                                @Html.ValidationMessageFor(model => model.ldto[p].About)
+                                            </div>
+                                        </div>
+
+                                        <!-- Temp removal
+                                        <div style="float: left; width: 472px; margin-bottom: 10px">
+                                            <div style="float: left; width: 100px; margin-left: 20px">
+                                                Favorite Product:
+                                            </div>
+                                            <div style="float: left; width: 350px; text-align: left">
+                                                @Html.TextBoxFor(model => model.ldto[p].FavProduct, new { @Class = "inp-round1" })
+                                                @Html.ValidationMessageFor(model => model.ldto[p].FavProduct)
+                                            </div>
+
+                                        </div>
+                                        -->
+
+                                        <div style="float: left; width: 550px; margin:20px 0 15px 0;">
+                                            <!--
+                                            <div class="smsIcons" style="float:left; margin:0 0 0 130px;">
+                                                <a class="fb" id="fblink" onclick="share();">
+
+                                                </a>
+
+                                                <a class="tw" target="_blank" href="http://twitter.com/intent/tweet?source=webclient&text=I just unlocked a PetHealthClub badge with my pet! Join the club and you can win free from NaturesRecipe! https://apps.facebook.com/pethealthclub/">
+                        
+                                                </a>
+
+                                                    
+                                                <a id="PinItButton" href="http://pinterest.com/pin/create/button/?url=https://apps.facebook.com/pethealthclub&amp;media=http://pethealthclub.vm-fb.com/Content/images/PetHealthClub.png&amp;description=I just unlocked a badge from Pet Health Club! I'm one step closer to winning free Nature’s Recipe and getting healthier with my pet!" class="pin pin-it-button" count-layout="horizontal" target="_blank" >
+                                                        
+                                                </a>
+                                            </div>
+                                            -->
+                                            <div style="float: right; width: 210px; margin-right:10px;  text-align: right">
+                                                   
+                                                  
+                                                        @Html.ActionLink(" ", "Editpetprofile", new { id = Model.ldto[p].PID }, new { @class = "EditImg" })
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="clr1">&nbsp; </div>
+
+
+            </div>
+            }
+        }
+        else
+        {
+
+        }
+
+            <div class="midslider">
+                <div id="profileContainer">
+                    <div>
+ 
+                        <div id="slides-s">
+
+                            <div class="slides_container">
+
+                                <div class="slide" id="membership">
+                                    <div class="left-ccc">
+                                        <p class="head-texcc">
+
+                                            <img id="PetImg2" name="PetImg2" src="@Url.Content("~/Content/images/Noimage1.jpg")" width="203" />
+                                            @*   @Html.TextBoxFor(model => model.pimg1, new { @id = "pimg2", hidden = true })*@
+                                            @Html.TextBoxFor(model => model.pimg1, "", htmlAttributes: new { @class = "required", @id = "pimg2", hidden = true, style="display:none;" })
+                                            @Html.ValidationMessageFor(model => model.pimg1, "Pet photo is required")
+                                            <br />
+                                            <div id="upfile2" class="upload_photo" style="cursor:pointer; float:left; margin-left:15px;"></div>
+                                            <div class="upload_text" style="display:none;">Upload new photo:</div>
+                                            <input type="file" name="Uploadfile2" id="Uploadfile2" size="8" style="display: none" onchange="readURL2(this);" />
+                                               
+                                        </p>
+                                        <p class="white-tcc">
+                                        </p>
+                                        <p class="white-t">
+                                        </p>
+                                        @*   <script>
+                                                $("#upfile2").click(function () {
+                                                    
+                                                        $("#Uploadfile2").trigger('click');
+                                                });
+
+
+                                        </script>*@
+                                    </div>
+
+                                    <div class="right-c">
+                                        <div style="float: left; width: 550px;">
+                                            <div style="float: left; width: 370px">
+                                                <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        Name:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left;">
+                                                        @*  @Html.TextBoxFor(model => model.PetName1, new { @id = "txtpname1", @Class = "inp-round1" })
+                                                        @Html.ValidationMessageFor(model => model.PetName1)*@
+
+                                                        @Html.TextBoxFor(model => model.PetName1, "", htmlAttributes: new { @id = "txtpname1", @class = "required inp-round1 ptScript membershipInput" })
+                                                        @Html.ValidationMessageFor(model => model.PetName1, "*")
+                                                    </div>
+                                                </div>
+
+                                                <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        From:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left">
+                                                        @Html.TextBoxFor(model => model.Location1, new { @Class = "required inp-round1 ptScript membershipInput" })
+                                                        @Html.ValidationMessageFor(model => model.Location1)
+                                                    </div>
+                                                </div>
+
+                                                <div style="float: left; width: 370px; margin-bottom: 15px">
+                                                    <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                        Date of Birth:
+                                                    </div>
+                                                    <div style="float: left; width: 230px; text-align: left">
+                                                        @Html.TextBoxFor(model => model.DOBDate1, new { id = "DOB2", @Class = "required inp-round1 ptScript membershipInput", onkeypress="return false;" })
+                                                        @Html.ValidationMessageFor(model => model.DOBDate1)
+                                                        <script>
+                                                            $(function () {
+                                                                $("#DOB2").datepicker({
+                                                                    changeMonth: true,
+                                                                    changeYear: true,
+                                                                    yearRange: "-30:+0"
+
+                                                                });
+                                                            });
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="float: right; width: 180px">
+                                                <div id="basic" style="border: 0px; padding:0; float:left; margin-right:10px;" onclick="chkdog1()">
+                                                    <img src="@Url.Content("~/Content/images/small_dog_1.png")" id="imgdog1"   /></div>
+                                                <div id="advanced" style="border: 0px; padding:0;" onclick="chkcat1()">
+                                                    <img src="@Url.Content("~/Content/images/small_dog_2.png")" id="imgcat1" /></div>
+
+
+                                                <script type="text/javascript">
+
+                                                    function chkdog1() {
+
+                                                        document.getElementById("div1").style.display = "none";
+
+                                                        if (document.getElementById("basic").click) {
+
+                                                            document.getElementById('podog1').checked = true;
+                                                            document.getElementById('pocat1').checked = false;
+                                                            document.getElementById('lblpcid1').value = 1;
+                                                            document.getElementById("imgdog1").style.opacity = "25.0";
+                                                            document.getElementById("imgcat1").style.opacity = "0.4";
+                                                        }
+                                                    }
+
+                                                    function chkcat1() {
+
+                                                        document.getElementById("div1").style.display = "none";
+
+                                                        if (document.getElementById("advanced").click) {
+
+                                                            document.getElementById('podog1').checked = false;
+                                                            document.getElementById('pocat1').checked = true;
+                                                            document.getElementById('lblpcid1').value = 2;
+                                                            document.getElementById("imgcat1").style.opacity = "25.0";
+                                                            document.getElementById("imgdog1").style.opacity = "0.4";
+                                                        }
+                                                    }
+
+
+
+                                                </script>
+                                            </div>
+                                            <div id="div1" style="display: none">
+                                                <input id="podog1" name="poBoxRadio" type="radio" value="No" />
+                                                <input id="pocat1" name="poBoxRadio" type="radio" value="No" />
+                                                @Html.TextBoxFor(model => model.pcid1, new { @id = "lblpcid1" })
+                                            </div>
+                                        </div>
+                                        <div id="btnid" style="width:534px; height:64px;">
+                                            <span class="add_another_pet">
+                                                &nbsp;&nbsp;&nbsp; Click to add another pet&nbsp;&nbsp;&nbsp; 
+
+                                            </span></div>
+
+                                        <div style="float: left; width: 550px; margin-bottom: 15px">
+                                            <div class="regularFont membershipLabel" style="float: left; width: 110px; margin-left: 20px">
+                                                About:
+                                            </div>
+                                            <div style="float: left; width: 350px; text-align: left">
+                                                @Html.TextAreaFor(model => model.About1, new { @Style = "width:170px; padding-left:5px;", @class = "required inp-roundmulti ptScript membershipInput" })
+                                                @Html.ValidationMessageFor(model => model.About1)
+                                            </div>
+                                        </div>
+
+                                        <!--
+                                            temp remove
+                                        <div style="float: left; width: 550px; margin-bottom: 15px">
+                                            <div style="float: left; width: 100px; margin-left: 20px">
+                                                Favorite Product:
+                                            </div>
+                                            <div style="float: left; width: 350px; text-align: left">
+                                                @Html.TextBoxFor(model => model.FavProduct1, new { @Class = "inp-round1" })
+                                                @Html.ValidationMessageFor(model => model.FavProduct1)
+                                            </div>
+
+                                        </div>
+                                        -->
+                                        <div style="float: left; width: 550px; margin-bottom: 15px">
+                                            <div style="float: left; width: 100px; margin-left: 20px">
+                                                &nbsp;
+                                            </div>
+                                            <div style="float: right; width: 550px; margin-top:20px; text-align: right">
+                                                <!--
+                                                <div class="smsIcons" style="float:left; margin:0 0 0 130px;">
+                                                    <a class="fb" id="fblink" onclick="share();">
+
+                                                    </a>
+
+                                                    <a class="tw" target="_blank" href="http://twitter.com/intent/tweet?source=webclient&text=I just unlocked a PetHealthClub badge with my pet! Join the club and you can win free from NaturesRecipe! https://apps.facebook.com/pethealthclub/">
+                        
+                                                    </a>
+
+                                                        
+                                                    <a id="PinItButton" href="http://pinterest.com/pin/create/button/?url=https://apps.facebook.com/pethealthclub&amp;media=http://pethealthclub.vm-fb.com/Content/images/PetHealthClub.png&amp;description=I just unlocked a badge from Pet Health Club! I'm one step closer to winning free Nature’s Recipe and getting healthier with my pet!" class="pin pin-it-button" count-layout="horizontal" target="_blank" >
+                                                            
+                                                    </a>
+                                                </div>
+                                                -->
+                                                <button id="submit1" name="Save" value="Save" style="border:none; background:none; cursor: pointer">
+                                                    <div class="save" style="float:right;"></div>
+                                                </button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="clr1">&nbsp; </div>
+
+
+        </div>
+
+        <a href="#"  class="big-link" data-reveal-id="myModal" data-animation="fade" id="hidpop" ></a>
+
+    </div>
+}
+
+@if (Convert.ToBoolean(ViewBag.ShowBadgeModal) )
+{
+    Html.RenderPartial("BadgeDetailModal");
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            BadgeHelper.basePath = '@Url.Content("~/")';
+
+            // init share values
+            SocialShare.init({
+                callback: BadgeHelper.shareCallback
+                , text: "@ConfigurationHelper.ShareCopy_Facebook_EarnedBadge"
+                , image: '@ConfigurationHelper.SiteUrl@Url.Content("~/Content/images/PetHealthClub.png")'
+                , url: "@ConfigurationHelper.FacebookAppUrl"
+                , name: 'Pet Health Club'
+            });
+            
+            $('.fb').bindFacebookShare({});
+            $('.pin').bindPinterestShare({ text: "@Url.Encode(ConfigurationHelper.ShareCopy_Pinterest_EarnedBadge)" });
+            $('.tw').bindTwitterShare({ twitterText: "@Url.Encode(ConfigurationHelper.ShareCopy_Twitter_EarnedBadge)" });
+
+            $("#divbadgename").text('Paws Up!');
+            $("#divchname").text('Picture Perfect');
+            $("#divchsubname").text('Your Paws Pass is complete. Your pet looks so adorable!');
+            $("#petimage").attr('src', '@ViewBag.PetImage');
+            $("#petbadge").attr('src', '@Url.Content("~/Content/Uploads/Badges/trophy.png")');
+            $("#divpetname").text('');
+            $('#divchdate').hide(); 
+
+            document.getElementById('hidpop').click();
+        });
+    </script>
+}
+
+
+<div style="height: 629px; opacity: 0.7; display: none;" id="backgroundPopup"></div>
+

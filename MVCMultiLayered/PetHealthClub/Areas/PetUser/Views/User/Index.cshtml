@@ -1,0 +1,243 @@
+﻿@model PHCDto.DTO.PetProfileDTO
+@{
+    
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Pet Health Club</title>
+
+    <script src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+
+    <link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Content/js/slides.min.jquery.js")"></script>
+
+    @*<script>
+        $(function () {
+            // Set starting slide to 1
+            var startSlide = 1;
+            // Get slide number if it exists
+            if (window.location.hash) {
+
+                startSlide = window.location.hash.replace('#', '');
+
+            }
+            // Initialize Slides
+            $('#slides').slides({
+                preload: false,
+                preloadImage: 'images/loading.gif',
+                generatePagination: true,
+                play: 0,
+                pause: 0,
+
+                hoverPause: true,
+                // Get the starting slide
+                start: startSlide,
+                animationComplete: function (current) {
+                    // Set the slide number as a hash                                                     
+                        window.location.hash = '#' + current;                 
+                }
+            });
+        });
+    </script>*@
+
+    <script type="text/javascript">
+        function FBLogin() {
+            var pname = document.getElementById("txtpname").value;
+            var pbreed = document.getElementById("txtbreed").value;
+            var pcat = document.getElementById("lblpcid").value;
+
+            if (pname != "" && pbreed != "" && pcat != "") {
+                window.location.href = "User/BadgePage?pname=" + pname + "&pbreed=" + pbreed + "&pcat=" + pcat;
+            }
+            else {
+                var alertmsg = "";
+
+                if (pname == "")
+                {
+                    alertmsg = "PetName";
+                }
+                if (pbreed == "")
+                {
+                    if (alertmsg != "")
+                    {
+                        alertmsg = alertmsg + ", PetBreed";
+                    }
+                    else
+                    {
+                        alertmsg = "PetBreed";
+                    }
+                }
+                if (pcat == "")
+                {
+                    if (alertmsg != "")
+                    {
+                        alertmsg = alertmsg + ", PetCategory";
+                    }
+                    else
+                    {
+                        alertmsg = "PetCategory";
+                    }
+                }
+
+                alert(alertmsg + " are required");
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+
+        <div class="container">
+
+            <div class="content">
+                <div class="clr">&nbsp; </div>
+                <div class="midslider">
+                    <div id="container">
+                        <div id="example">
+                            <div id="slides">
+                                <div class="slides_container">
+
+
+                                    <div class="slide">
+                                        <div class="left-c">
+                                            <p class="head-tex">Pet Health Club </p>
+                                            <p class="white-t">
+                                                Get Started by filling out your<br />
+                                                Pet Pass. If you have more than<br />
+                                                one furry companion you can<br />
+                                                sign them up later.
+                                            </p>
+                                            <p class="white-t">
+                                                &nbsp;
+                                            </p>
+                                            <div class="img-block">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                        <div class="right-c">
+                                            <div style="float: left; width: 472px; margin-bottom: 10px">
+                                                <div style="float: left; width: 100px; margin-left: 20px">
+                                                    Pet's Name:
+                                                </div>
+                                                <div style="float: left; width: 350px; text-align: left;">
+                                                    @Html.TextBoxFor(model => model.PetName, new { @id = "txtpname" })
+                                                    @Html.ValidationMessageFor(model => model.PetName)
+                                                </div>
+                                            </div>
+
+                                            <div style="float: left; width: 472px; margin-bottom: 10px">
+                                                <div style="float: left; width: 100px; margin-left: 20px">
+                                                    Pet's Breed:
+                                                </div>
+                                                <div style="float: left; width: 350px; text-align: left">
+                                                    @Html.TextBoxFor(model => model.PetBreed, new { @id = "txtbreed" })
+                                                    @Html.ValidationMessageFor(model => model.PetBreed)
+                                                </div>
+
+
+                                            </div>
+
+                                            <div style="float: left; width: 472px">
+
+                                                <button type="button" id="basic" onclick="chkdog()">
+                                                    <img src="@Url.Content("~/Content/images/dog.jpg")" id="imgdog" />
+
+                                                </button>
+
+                                                <button type="button" id="advanced" onclick="chkcat()">
+                                                    <img src="@Url.Content("~/Content/images/cat.jpg")" id="imgcat" />
+
+                                                </button>
+                                                <script type="text/javascript">
+
+                                                    function chkdog() {
+
+                                                        document.getElementById("div1").style.display = "none";
+
+                                                        if (document.getElementById("basic").click) {
+
+                                                            document.getElementById('podog').checked = true;
+                                                            document.getElementById('pocat').checked = false;
+                                                            document.getElementById('lblpcid').value = 1;
+                                                            document.getElementById("imgdog").style.border = "5px solid #f49003";
+                                                            document.getElementById("imgcat").style.border = "0px solid #005596";
+                                                        }
+                                                    }
+
+                                                    function chkcat() {
+
+                                                        document.getElementById("div1").style.display = "none";
+
+                                                        if (document.getElementById("advanced").click) {
+
+                                                            document.getElementById('podog').checked = false;
+                                                            document.getElementById('pocat').checked = true;
+                                                            document.getElementById('lblpcid').value = 2;
+                                                            document.getElementById("imgcat").style.border = "5px solid #f49003";
+                                                            document.getElementById("imgdog").style.border = "0px solid #005596";
+                                                        }
+                                                    }
+
+
+
+                                                </script>
+
+                                                <div id="div1" style="display: none">
+                                                    <input id="podog" name="poBoxRadio" type="radio" value="No" checked="true" />
+                                                    <input id="pocat" name="poBoxRadio" type="radio" value="No" />
+                                                    @Html.TextBoxFor(model => model.pcid, new { @id = "lblpcid" })
+                                                </div>
+
+
+                                            </div>
+
+                                            <div style="float: left; width: 472px; margin-bottom: 10px">
+                                                <div style="float: left; width: 100px; margin-left: 20px">
+                                                    &nbsp;
+                                                </div>
+                                                <div style="float: left; width: 350px; text-align: left">
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clr1">&nbsp; </div>
+                <div class="big-button">
+                    <a href="#" onclick="FBLogin()">@* <button value="Submit" style="background-color:#ba8551;border:0;width:670px;height:50px">*@
+                        <img src="@Url.Content("~/Content/images/big_b.png")" style="border:0px;" />
+                        @*</button>*@
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    }
+</body>
+
+
+</html>
+
+

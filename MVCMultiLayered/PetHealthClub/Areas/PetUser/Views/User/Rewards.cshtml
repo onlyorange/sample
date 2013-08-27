@@ -1,0 +1,241 @@
+﻿@model PetHealthClub.Areas.PetUser.Models.RewardViewModel
+@{
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+    
+    var wallpaperCss = Model.UnlockedWallpaper ? "" : "rewardNA";
+    var calendarCss = Model.UnlockedCalendar ? "" : "rewardNA";
+    var threeCouponCss = Model.Unlocked3DollarCoupon ? "" : "rewardNA";
+    var tenCouponCss = Model.Unlocked10DollarCoupon ? "" : "rewardNA";
+}
+
+
+@section head {
+
+    <script type="text/javascript" src="@Url.Content("~/Content/js/jquery.reveal.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/reveal.css")">
+    <script src="@Url.Content("~/Content/js/jquery-latest.js")"></script>
+    <script src="@Url.Content("~/Content/js/slides.min.jquery.js")"></script>
+    <script src="@Url.Content("~/Content/js/tiny.js")"></script>
+
+    <script type="text/javascript">
+        // Init facebook
+        window.fbAsyncInit = function ()
+        {
+            FB.init({ appId: '@PetHealthClub.Helpers.ConfigurationHelper.FacebookAppId', status: true, cookie: true, xfbml: true });
+            FB.Canvas.setAutoGrow();
+        }
+
+        var $j = jQuery.noConflict();
+        $(window).load(function ()
+        {
+            // init share values
+            SocialShare.init({
+                callback: BadgeHelper.shareCallback
+                , text: "@ConfigurationHelper.ShareCopy_Facebook_UnlockedRewards"
+                , image: '@ConfigurationHelper.SiteUrl@Url.Content("~/Content/images/PetHealthClub.png")'
+                , url: "@ConfigurationHelper.FacebookAppUrl"
+                , name: 'Pet Health Club'
+            });
+            $('.fb').bindFacebookShare({});
+            $('.pin').bindPinterestShare({ text: "@Url.Encode(ConfigurationHelper.ShareCopy_Pinterest_UnlockedRewards)" });
+            $('.tw').bindTwitterShare({ twitterText: "@Url.Encode(ConfigurationHelper.ShareCopy_Twitter_UnlockedRewards)" });
+
+            var claimed = @Model.AlreadyClaimed.ToString().ToLower();
+        
+            @if( Model.UnlockedWallpaper )
+            {
+                <text>
+                $("#divbadge1")
+                    .css('cursor', 'pointer')
+                    .bind('click', function () {
+                        $("#badge1_trigger")
+                            .attr('data-reveal-id', 'myModal1')
+                            .click();
+                    });
+                </text>  
+            }
+
+            @if (Model.UnlockedCalendar)
+            {
+                <text>
+                 $("#divbadge9")
+                    .css('cursor', 'pointer')
+                    .bind('click', function () {
+                        $("#badge9_trigger")
+                            .attr('data-reveal-id', 'myModal9')
+                            .click();
+                    });
+                </text>  
+            }
+
+            @if (Model.Unlocked3DollarCoupon)
+            {
+                <text>
+                 $("#divbadge11")
+                   .css('cursor', 'pointer')
+                   .bind('click', function () {
+                       document.location = "@Url.Content("~/PetUser/User/RedeemReward/2")";
+                   });
+                </text>  
+            }
+
+
+
+            @if (Model.Unlocked10DollarCoupon)
+            {
+                <text>
+                $("#divbadge14")
+                  .css('cursor', 'pointer')
+                  .bind('click', function () {
+                      document.location = "@Url.Content("~/PetUser/User/RedeemReward/3")";
+                   });
+                </text>  
+            }
+        
+            // GA tracking for Back to dashboard button
+            $j('#back_dashboard').click(function () {
+                _gaq.push(['_trackEvent', 'Clicks', 'RewardsPage', 'Back']);
+            })
+
+            if( claimed )
+                alert('You already claimed this reward');
+        });
+    </script>
+}
+
+<div class="content">
+
+    <div id="challenge_to_dash">
+	    <a href="@Url.Content("~/Dashboard")" class="back_to_dashboard">Back to Dashboard</a>
+	</div>
+    <br /><br />
+    
+    <div id="rewardContainer" class="">
+            
+        <h3 class="pageHeader">My Rewards</h3>
+        <div class="pageCopy">
+            You and your pets have worked hard, so you deserve a treat. Check out the rewards you’ve unlocked below. The more badges you earn, the more rewards you get! Earn every badge and you’ll get our biggest treat yet!*
+        </div>
+                
+
+        <!-- Wallpaper --> 
+        <div class="rewardBadgeBox @wallpaperCss" id="divbadge1">
+            <div style="float: left; width: 123px; height: 125px;">
+                <img src="@Url.Content("~/Content/images/1_03.png")" border="0" />
+            </div>
+            <div style="float: left; width: 150px; height: auto;">
+                <h2>Badge </h2>
+            </div>
+                        
+            <div style="float: right; width: 320px; height: 105px; margin-top: 10px;">
+                <img src="@Url.Content("~/Content/images/prize-01.png")" />
+            </div>
+        </div>
+                    
+        <!-- Wallpaper Modal --> 
+        <a href="#" id="badge1_trigger" style="display:none;"></a>
+        <div class="redemption" style="width:810px;">
+            <div id="myModal1" class="reveal-modal">
+                <div class="modalboxLeft" style="padding-top:40px;">
+                    <img src="@Url.Content("~/Content/images/1_03.png")" />
+                </div>
+                <div class="modalboxRight">
+                    <h3 class="pageHeader">Congrats you’ve unlocked desktop wallpapers!</h3>
+
+                    <div id="like_button_rewards">
+                        <fb:like href="https://www.facebook.com/NaturesRecipe" send="false" layout="button_count" width="450" show_faces="false"></fb:like>
+                    </div>
+
+                    <div class="pageCopy">
+                        Download our four heartwarming backgrounds, then choose your favorite.  Keep up the great work for bigger rewards!
+                    </div>
+                    <div class="dlReward">
+                        <a href="https://s3.amazonaws.com/pethealthclub/PHC_Wallpapers.zip" target="_blank">Download</a>
+                    </div>
+                    
+                    <!-- Social sharing div starts -->
+                    <div class="social_icons" style="margin: 0px auto; width: 180px" id="divsicon">
+                        <a class="fb"></a>
+                        <a class="tw" ></a>
+                        <a class="pin"></a>
+                    </div>                    
+                    
+                </div>
+                <a class="close-reveal-modal x"></a>
+            </div>
+        </div>
+                    
+        <!-- Calendar --> 
+        <div class="rewardBadgeBox  @calendarCss" id="divbadge9">           
+            <div style="float: left; width: 124px; height: 123px;">
+                <img src="@Url.Content("~/Content/images/9_03.png")" />
+            </div>
+            <div style="float: left; width: 150px; height: auto;">
+                <h2>Badges </h2>
+            </div>
+            <div style="float: right; width: 320px; height: 105px; margin-top: 10px;">
+                <img src="@Url.Content("~/Content/images/prizes-02.png")" />
+            </div>
+        </div>
+                    
+        <!-- Calendar Modal --> 
+        <a href="#" id="badge9_trigger" style="display:none;"></a>
+        <div class="redemption" style="width:810px;">
+            <div id="myModal9" class="reveal-modal">
+                <div class="modalboxLeft" style="padding-top:40px;">
+                    <img src="@Url.Content("~/Content/images/9_03.png")" />
+                </div>
+                <div class="modalboxRight">
+                    <h3 class="pageHeader">Congrats, you and your pet have unlocked a 2013 Nature’s Recipe® calendar!</h3>
+                    <div id="like_button_rewards">
+                        <fb:like href="https://www.facebook.com/NaturesRecipe" send="false" layout="button_count" width="450" show_faces="false"></fb:like>
+                    </div>
+                    <div class="pageCopy">
+                        Look forward to the changing of the months with precious pictures of our favorite furry friends. Keep taking challenges for more rewards!
+                    </div>
+                            
+                    <div class="dlReward">
+                        <a href="https://s3.amazonaws.com/pethealthclub/PHC_Calender.pdf" target="_blank">Download</a>
+                    </div>
+
+                    <!-- Social sharing div starts -->
+                    <div class="social_icons" style="margin: 0px auto; width: 180px" id="divsicon">
+                        <a class="fb"></a>
+                        <a class="tw" ></a>
+                        <a class="pin"></a>
+                    </div>     
+                </div>
+                <a class="close-reveal-modal x"></a>
+            </div>
+        </div>
+                    
+        <!-- Coupon --> 
+        <div class="rewardBadgeBox @threeCouponCss" id="divbadge11">
+            <div style="float: left; width: 124px; height: 123px;">
+                <img src="@Url.Content("~/Content/images/11_03.png")" />
+            </div>
+            <div style="float: left; width: 150px; height: auto;">
+                <h2>Badges </h2>
+            </div>
+            <div style="float: right; width: 319px; height: 104px; margin-top: 10px;">
+                <img src="@Url.Content("~/Content/images/prize-03.png")" style="border:0;" />
+            </div>
+        </div>
+
+        <!-- $10 Coupon --> 
+        <div class="rewardBadgeBox @tenCouponCss" id="divbadge14">
+            <div style="float: left; width: 124px; height: 123px;">
+                <img src="@Url.Content("~/Content/images/14_03.png")" />
+            </div>
+            <div style="float: left; width: 150px; height: auto;">
+                <h2>Badges </h2>
+            </div>
+            <div style="float: right; width: 319px; height: 104px; margin-top: 10px;">
+                <img src="@Url.Content("~/Content/images/prize-04.png")" style="border:0;" />
+            </div>
+        </div>
+        
+        <em>*Redemption of rewards is subject to availability</em>
+    </div>
+    
+</div>

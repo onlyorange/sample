@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+<div class="content">
+
+    <div id="challenge_to_dash">
+	    <a href="@Url.Content("~/Dashboard")" class="back_to_dashboard">Back to Dashboard</a>
+	</div>
+    <br /><br />
+    
+    <div id="faq" class="white_container" style="text-align:left;">
+        <h3 class="pageHeader">FAQ</h3>
+        <div class="pageCopy"></div>
+        
+        <div class="question">Q: How can I sign up more pets?</div>
+        <div class="answer">A: You can add more pets by clicking on <a href="@Url.Content("~/PetUser/User/PetProfile")">My Paws Pass</a> in the Pet Health Club dashboard. You'll see "Click to add another pet" below your current pets.</div>
+
+        <div class="question">Q: Where are my badges?</div>
+        <div class="answer">A: You can see all the badges you've unlocked by clicking <a href="@Url.Content("~/PetUser/User/BadgesList")">My Badges</a> in the center of the Pet Health Club dashboard.</div>
+
+        <div class="question">Q: How do I receive more badges?</div>
+        <div class="answer">A: Every time you complete a challenge you unlock a badge. You can also receive a badge when you complete your Pet Pass, or share your achievements on Facebook, Twitter, and Pinterest.</div>
+
+        <div class="question">Q: Where can I find new challenges?</div>
+        <div class="answer">A: You can scroll through all the available challenges on the Pet Health Club dashboard.</div>
+
+        <div class="question">Q: How do I earn rewards? </div>
+        <div class="answer">A: By unlocking badges! </div>
+
+        <div class="question">Q: Where do I find my rewards?</div>
+        <div class="answer">A: You can see your rewards after clicking <a href="@Url.Content("~/PetUser/User/Rewards")">My Rewards</a> on the Pet Health Club dashboard. To claim the reward, simply click on it! You will also find the badge requirements for each reward listed here.</div>
+
+        <div class="question">Q: What is a contest challenge?</div>
+        <div class="answer">A: Contest challenges unlock more than just badges. When you complete one you can enter for a chance to win additional PHC rewards. For a limited time, while supplies last.</div>
+
+    </div>
+
+</div>

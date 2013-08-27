@@ -1,0 +1,134 @@
+﻿@model PHCDto.DTO.ChallengeDTO
+@{
+    ViewBag.Title = "Pet Health Club Dashboard";
+    Layout = "~/Views/Shared/_Sitemaster.cshtml";
+}
+
+@section head {
+
+    <script type="text/javascript" src="@Url.Content("~/Content/js/jquery.reveal.js")"></script>
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/reveal.css")">
+    <script src="@Url.Content("~/Content/js/tiny.js")"></script>
+    <script type="text/javascript">
+
+        // pre-load our share messages
+        var fbShareContent = "@ConfigurationHelper.ShareCopy_Facebook_EarnedBadge";
+        var pinShareContent = "@Url.Encode(ConfigurationHelper.ShareCopy_Pinterest_EarnedBadge)";
+        var twShareContent = "@Url.Encode(ConfigurationHelper.ShareCopy_Twitter_EarnedBadge)";
+
+        var fbShareFromChallenge = "@ConfigurationHelper.ShareCopy_Facebook_CompletedChallenge";
+        var pinShareFromChallenge = "@Url.Encode(ConfigurationHelper.ShareCopy_Pinterest_CompletedChallenge)";
+        var twShareFromChallenge = "@Url.Encode(ConfigurationHelper.ShareCopy_Twitter_CompletedChallenge)";
+
+        // Init facebook
+        window.fbAsyncInit = function () {
+            FB.init({ appId: '@PetHealthClub.Helpers.ConfigurationHelper.FacebookAppId', status: true, cookie: true, xfbml: true });
+            FB.Canvas.setAutoGrow();
+        }
+        
+        var $j = jQuery.noConflict();
+
+        $j(window).load(function () {
+            //$j('#carousel').bxCarousel({
+            //    display_num: 5,
+            //    move: 1,
+            //    prev_image: '../images/prev.png',
+            //    next_image: '../images/next.png'
+            //});
+            
+            var urlid = (document.referrer).split("PetChallenge?id=");
+            if (urlid[1] != undefined) {
+
+                $.get('../User/CHNotify', function (data) {
+
+                    $.get('@Url.Content("~/PetUser/User/CHDExists")?chi=' + data.CHID, function (data) {
+                        BadgeHelper.showBadgeFromChallenge(data, '@Url.Content("~/")');
+                        document.getElementById('hidpop').click();
+                    })
+                });
+            }
+
+            // GA tracking for Back to dashboard button
+            $j('#back_dashboard').click(function () {
+                _gaq.push(['_trackEvent', 'Clicks', 'BadgeListPage', 'Back']);
+            })
+        });
+
+        function Challenge(ebid, bid) {
+
+            BadgeHelper.showLoading();
+
+            if (ebid != 0) {
+                $.get('../User/CompleteCh?ebid=' + ebid, function (data) {
+                    BadgeHelper.showBadgeDetail(data, '@Url.Content("~/")');
+                });
+            }
+            else {
+                $.get('../User/InCompleteCh?bid=' + bid, function (data) {
+                    BadgeHelper.showBadgeNotEarned(data, '@Url.Content("~/")');
+                });
+            }
+
+            FB.Canvas.scrollTo(0, 0);
+        }
+    </script>
+}
+
+
+
+<div class="content">
+    @if (Request.QueryString["code"] != null)
+    {
+        string name = Request.QueryString["code"];
+        Response.Redirect("~/PetUser/User/FacebookPosting?code=" + name);
+    }
+
+    <div style="float: left; margin-left: 96px;">
+        <a href="@Url.Content("~/PetUser/User/BadgePage1")" class="back_to_dashboard" style="" id="back_dashboard">
+
+        </a>
+    </div>
+    <div style="clear:both;"></div>
+    <br />
+    <br />
+    <div class="badgelistContainer">
+        <h3 class="pageHeader">My Badges</h3>
+        <div class="pageCopy">
+            Click on badges to find out how to earn them and to see the badges you've already unlocked!
+        </div>
+        
+        <div class="badgeBox">
+            <div class="badge1">
+                @foreach (var badgeblock in Model.lstbadge)
+                {
+                    <a href="#"  class="big-link" data-reveal-id="myModal" data-animation="fade" onclick="Challenge(@badgeblock.EBID,@badgeblock.BID)" >
+                        <div class="b2">
+                            @if (@badgeblock.bstatus == 0)
+                            {
+                                <img src="@badgeblock.BadgeImage" class="badgestyle" border="0" />
+                            }
+                            @if (@badgeblock.bstatus == 1)
+                            {
+                                <img src="@badgeblock.BadgeImage" class="badgestyle1" border="0" />
+                            }
+                        </div>
+                    </a>   
+                }
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <div class="clr1">&nbsp; </div>
+    </div>
+    <a href="#" class="big-link" data-reveal-id="myModal" data-animation="fade" id="hidpop" ></a>
+</div>
+
+@{Html.RenderPartial("BadgeDetailModal");}
+
+
+
+<div style="height: 629px; opacity: 0.7; display: none;" id="backgroundPopup"></div>
+
+
