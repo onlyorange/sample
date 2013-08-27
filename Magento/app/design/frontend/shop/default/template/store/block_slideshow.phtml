@@ -1,0 +1,11 @@
+<?php
+ob_start();
+echo $this->getChildHtml();
+$store_blocks = Mage::registry('store_blocks');
+if ( !$store_blocks ) {
+    $store_blocks = array();
+} else {
+    Mage::unregister('store_blocks');
+}
+$store_blocks['block_slideshow'] = ob_get_clean();
+Mage::register('store_blocks', $store_blocks);

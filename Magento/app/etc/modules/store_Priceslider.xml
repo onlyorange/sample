@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <store_Priceslider>
+            <active>true</active>
+            <codePool>local</codePool>
+        </store_Priceslider>
+    </modules>
+</config> 

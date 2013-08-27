@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <store_shopcategories>
+            <version>0.1.2</version>
+        </store_shopcategories>
+    </modules>
+    <admin>
+        <routers>
+			<shopcategories>
+				<use>admin</use>
+				<args>
+					<module>store_shopcategories</module>
+					<frontName>shopcategories</frontName>
+				</args>
+			</shopcategories>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<elitegroup translate="title" module="shopcategories">
+				<title>Elite Group</title>
+				<sort_order>9999</sort_order>
+				<children>
+                    <settings translate="title" module="shopcategories">
+                        <title>Settings</title>
+                        <sort_order>10</sort_order>
+                        <children>
+                            <shopcategories translate="title" module="shopcategories">
+                                <title>Categories Color Schemes</title>
+                                <sort_order>120</sort_order>
+                                <action>shopcategories/adminhtml_shopcategories</action>
+                            </shopcategories>
+                        </children>
+                    </settings>
+				</children>
+			</elitegroup>
+		</menu>
+		<acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <elitegroup>
+                            <title>Elite Group</title>
+                            <children>
+                                <settings>
+                                    <title>Settings</title>
+                                    <children>
+                                        <shopcategories>
+                                            <title>Categories Color Schemes</title>
+                                        </shopcategories>
+                                    </children>
+                                </settings>
+                            </children>
+                        </elitegroup>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>   
+    <global>
+        <models>
+            <shopcategories>
+                <class>store_shopcategories_Model</class>
+                <resourceModel>shopcategories_mysql4</resourceModel>
+            </shopcategories>
+            <shopcategories_mysql4>
+                <class>store_shopcategories_Model_Mysql4</class>
+                <entities>
+                    <scheme>
+                        <table>shop_category_scheme</table>
+                    </scheme>
+	                <scheme_store>
+                        <table>shop_category_scheme_store</table>
+                    </scheme_store>
+                </entities>
+            </shopcategories_mysql4>
+        </models>
+        <resources>
+            <shopcategories_setup>
+                <setup>
+                    <module>store_shopcategories</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </shopcategories_setup>
+            <shopcategories_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </shopcategories_write>
+            <shopcategories_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </shopcategories_read>
+        </resources>
+        <blocks>
+            <shopcategories>
+                <class>store_shopcategories_Block</class>
+            </shopcategories>
+        </blocks>
+        <helpers>
+            <shopcategories>
+                <class>store_shopcategories_Helper</class>
+            </shopcategories>
+        </helpers>
+    </global>
+</config>

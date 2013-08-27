@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <store_Priceslider>
+            <version>0.1.0</version>
+        </store_Priceslider>
+    </modules>
+    <global>
+		<blocks>
+			<priceslider>
+				<class>store_Priceslider_Block</class>
+			</priceslider>
+		</blocks>
+   </global>
+   <frontend>
+        <routers>
+            <priceslider>
+                <use>standard</use>
+                <args>
+                    <module>store_Priceslider</module>
+                    <frontName>priceslider</frontName>
+                </args>
+            </priceslider>
+        </routers>  
+		 <layout>
+            <updates>
+                <priceslider>
+                    <file>store/priceslider.xml</file>
+                </priceslider>
+            </updates>
+        </layout>
+    </frontend>
+</config>
