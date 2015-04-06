@@ -1,0 +1,119 @@
+/**
+ * worpdress admin area
+ */
+
+/* admin page */
+#menu-pages {
+	display:none;
+}
+.waterfall .avia-tab-1 .sw-waterfall, .paginated .avia-tab-1 .sw-paginated {
+	display:none;
+}
+#postdivrich_wrap {
+	position: static !important;
+}
+#freeFormContent {
+	display:block;
+}
+#freeFormContent.hide-editor {
+	display:none;
+}
+.wp-submenu li ul.addNewSub {
+	display:none;
+	min-width:160px;
+	width: auto;
+	background-color: #333;
+	border-color: #dfdfdf;
+	-webkit-box-shadow: 0 3px 5px rgba(0,0,0,.2);
+	box-shadow: 0 3px 5px rgba(0,0,0,.2);
+	list-style: none;
+	padding: 7px 0 8px;
+	margin: 0;
+	position: absolute;
+	left: 160px;
+	z-index: 1000;
+	overflow: visible;
+	/* this is wp 3.8- style
+	border-width: 1px;
+	border-style: solid;
+	-webkit-border-bottom-right-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-right-radius: 3px;
+	*/
+}
+.wp-submenu.wp-submenu-wrap li:hover {
+	background-color:#111;
+}
+.wp-submenu.wp-submenu-wrap .current {
+	background-color:#111;
+}
+.wp-submenu li:hover a + ul.addNewSub, .wp-submenu ul.addNewSub:hover{
+	display:block;
+	top: 61px;
+}
+#menu-posts-fashion .wp-submenu li:hover a + ul.addNewSub, #menu-posts-fashion .wp-submenu ul.addNewSub:hover {
+	top:76px;
+}
+#menu-posts-jet .wp-submenu li:hover a + ul.addNewSub, #menu-posts-jet .wp-submenu ul.addNewSub:hover {
+	top: 87px;
+}
+.form-table {
+	float:left;
+	margin:5px 0 15px 0;
+}
+.ctaField {
+	clear:both;
+}
+.form-table input {
+	padding::3px 5px;
+}
+.form-table .label {
+	min-width:135px;
+	padding:3px 5px;
+	float:left;
+}
+.form-table .remove {
+	float:left;
+	margin-left:10px;
+}
+.addNew {
+	clear:both;
+	margin-top:15px;
+}
+.addNew .label {
+	float:left;
+	min-width: 135px;
+	padding:3px 5px;
+}
+#TB_window {
+	z-index:999999 !important;
+}
+#tagsdiv-celebrity-tag, #jetset-postbox-container-0 {
+	display:none;
+}
+div .avia_inner_shortcode img {
+    max-height: 300px !important;
+}
+#aviaTBcontent_wrapper_first-form-container, #aviaTBaviaTBcontent_wrapper_first-form-container {
+	display:block;
+}
+#aviaTBcontent_wrapper_second-form-container, #aviaTBaviaTBcontent_wrapper_second-form-container {
+	display:none;
+}
+
+/*full width layout overwrites*/
+.avia_layout_builder .av_full_bleed, .avia_layout_builder .av_full_margin {
+	width: 98%;
+}
+.avia_layout_column.av_full_bleed >.menu-item-handle .avia-clone, .avia_layout_column.av_full_margin >.menu-item-handle .avia-clone{
+	left:123px;
+}
+.avia_layout_builder .av_full_bleed .avia-col-size, .avia_layout_builder .av_full_margin .avia-col-size{
+	width: 81px;
+}
+
+/******** enfold editor *******/
+#avia_builder {
+	
+}

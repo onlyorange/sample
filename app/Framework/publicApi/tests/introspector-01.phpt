@@ -1,0 +1,8 @@
+--TEST--
+
+
+--FILE--
+<?php
+
+?>
+--EXPECT--
