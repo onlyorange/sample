@@ -1,0 +1,29 @@
+
+Record_media query sample:
+
+http://localhost:3100/media?id=12312&created_time=23&user_id=234&username=2345&full_name=234234&profile_picture=sdf&type=text&tags=6sec&location=nyc&platform=twitter&link=http&thumbnail=sdfasdfasdf&low_resolution=low&standard_resolution=standard&status=status&text=text
+
+
+Media Schema
+
+{
+
+    "_id": "51ef5395d05616460264aae1",
+    "created_time": "Wed Jul 24 04:09:57 +0000 2013",
+    "full_name": "Mackensi Norman",
+    "id": "359888155526176800",
+    "link": "https://vine.co/v/hKtbYlqHJiV",
+    "location": "",
+    "low_resolution": "https://vine.co/v/hKtbYlqHJiV",
+    "platform": "twitter.com",
+    "profile_picture": "http://a0.twimg.com/profile_images/378800000168336040/15f68c965656959f541293db5e8c4ece_normal.jpeg",
+    "standard_resolution": "https://vine.co/v/hKtbYlqHJiV",
+    "status": "",
+    "tags": "tags",
+    "text": "My dogs enjoying sprinkles cupcakes https://t.co/TN7XdZXJO6",
+    "thumbnail": "",
+    "type": "text",
+    "user_id": "224452188",
+    "username": "mack0rz"
+
+},

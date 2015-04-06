@@ -1,0 +1,36 @@
+{
+    "apps": {
+    	"collectors": {
+	        "instagram": {
+	        	"port": "3000",
+	        	"server": "blackboxing.me",
+	        	"callback_url": "http://ec2-54-214-245-44.us-west-2.compute.amazonaws.com:3000/handleauth",
+	        	"client_id": "7f40ab6e4e9c4c9a95df40b5e2cbf28e",
+	        	"client_secret": "1ff216e1df4a4866a7bf011e437a100b"
+        	},
+        	"twitter": {
+        		"port": "5000",
+        		"server": "blackboxing.me",
+        		"consumer_key": "yjYYunJGyVDPmZLZWrxlTA",
+        		"consumer_secret": "DDVuDBZzqZyX9hvc27fiRJ2xq9CltfFoclYDSUA0",
+        		"access_token_key": "196481398-GfDuCHb71qjDc9v0CuukQzr0Fd8zCpUWLRnanjRV",
+        		"access_token_secret": "LihlD0fjuBssu3HE9lll54gfZCPXoQElMCfmyepBDvU"
+    		},
+            "vine": {
+                "port": "4000",
+                "server": "blackboxing.me",
+                "consumer_key": "JzcPj4hZd4NXQSX6pL5g",
+                "consumer_secret": "uCDtrqXynLWkIeCGDQnXd3LvgjeBJW91x7JlMLIYH8",
+                "access_token_key": "1590416550-rLMsQHlixtlIO18yUfIv94Jtc49kLP3NZ1SHI3K",
+                "access_token_secret": "cdRQVpoT0ppUw6RIUUbCYG2KQjmpEnM2vmscMmWxrQ"
+            }
+    	},
+    	"APIS": {
+	        "record_media": {
+	        	"port": "3100",
+	        	"server": "http://blackboxing.me:3100/media?",
+	        	"dbconn": "mongodb://robertschaap:front242@ana.mongohq.com:10085/instagram_collector_copy"
+        	}
+    	}
+	}
+}
