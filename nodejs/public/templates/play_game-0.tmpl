@@ -1,0 +1,202 @@
+<div id="main">
+  <div class="page">
+
+
+
+      <div class="snow">
+	
+		<div class="top">
+	<div id="header" class="clear">
+		<div class="round_zone">
+			<div class="time">
+				<span id="text_time"><%=text_time%></span>
+				<span class="countdown" id="timergame">00:02:47</span>
+			</div>
+			<div class="rounds clearfix">
+				<span>Round:</span> <span class="num" id="round"><%=round%></span> <span>of</span> <span class="num"><%=roundTotal%></span>
+			</div>
+		</div>
+		<div class="logo">
+			6pm.com - Social White Elephant
+		</div>
+		<div class="actions clearfix">
+			<div class="act">
+				<div class="act_lab"><b>Swaps</b> left this round:</div> <div class="num" id="swaps_available"><%=swaps_available%></div>
+			</div>
+                            
+			<div class="act clearfix">
+				<div class="act_lab"><b>Blocks</b> left this game:</div> <div class="num" id="blocks_available"><%=blocks_available%></div>
+			</div>
+			<div id="share">Share</div>
+		</div>
+	</div>
+     </div>
+    
+
+     
+
+
+<div class="app_container">
+    <div id="product_board">
+         <%=prizes_content%>       
+    </div>
+
+    <div id="live_feed">
+    <ul id="feed">
+        
+    </ul>
+    </div>		
+    
+</div>
+
+
+<div class="hills">
+                <div id="rules">
+<h4>How to Play</h4>
+<ol>
+        <li>There are three five-minute rounds.</li>
+        <li>Want a different gift? <span>You get one swap per round.  Unused Swaps do not carry over.</span></li>
+        <li>Want to keep your gift?  <span>You have one block to use anytime in the game.  Blocks will protect you from one swap attempt and expire at the end of the round, so block wisely!</span></li>
+        <li>Blocked items will not be visible to other players as blocked.</li>
+        <li>Want an extra swap? <span>Share the game with your friends on Facebook, and earn an extra swap to use in any round.</span></li>
+        <li>You win whichever gif you have at the end of the game!*</li>
+<i>* Prizes will be fulfilled with a 6pm.com e-certificate.</i>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+
+
+             <div class="blackout">
+                
+                <!-- initial product -->
+		<div class="litebox" id="initial_gift">
+			<div id="initial_gift_photo">
+				<img src="<%=initial_gift_image%>" width="200" />
+			</div>
+			<h2>This is your Gift!</h2>
+			<h4><%=initial_gift_name%> - <%=initial_gift_brand%></h4>
+			<ol>
+				<h3>How to Play</h3>
+				<li>There are three five-minute rounds.</li>
+				<li>Want a different gift? <span>You get one swap per round.  Unused Swaps do not carry over.</span></li>
+				<li>Want to keep your gift?  <span>You have one block to use anytime in the game.  Blocks will protect you from one swap attempt and expire at the end of the round, so block wisely!</span></li>
+				<li>Blocked items will not be visible to other players as blocked.</li>
+				<li>Want an extra swap? <span>Share the game with your friends on Facebook, and earn an extra swap to use in any round.</span></li>
+				<li>You win whichever gif you have at the end of the game!*</li>
+				<i>* Prizes will be fulfilled with a 6pm.com e-certificate.</i>
+			</ol>
+			<div class="rb_lg" id="init_gif_to_game">Start Playing</div>
+		</div>
+                <!-- /initial product -->    
+                                
+                    
+		<div class="litebox" id="round_reminder_2">
+			<div class="inner">
+				<h3>It's time for round 2!</h3>
+				<p>That means you have another chance to swap.</p>
+				<!-- only show this for round 2 & 3 -->
+				<div class="rb_sm" id="round_ok_2">OK</div>
+			</div>
+		</div>
+
+                <div class="litebox" id="round_reminder_3">
+			<div class="inner">
+				<h3>It's time for round 3!</h3>
+				<p>That means you have another chance to swap.</p>
+				<!-- only show this for round 2 & 3 -->
+				<div class="rb_sm" id="round_ok_3">OK</div>
+			</div>
+		</div>
+                
+                
+		<div class="litebox" id="block_ask">
+			<div class="inner">
+				<h3>Are you sure you<br/>want to block?</h3>
+				<p>Remember, you only have<br/>one block per game.</p>
+				<div class="rb_med" id="block_yes">Yes</div>
+				<div class="rb_med" id="block_nevermind">Nevermind</div>
+			</div>
+		</div>
+
+		<div class="litebox" id="block_confirm">
+			<div class="inner">
+				<h3>You blocked this item!</h3>
+				<p>Your block will expire after somebody tries to swap with you, or at the end of this round.</p>
+				<div class="rb_lg" id="block_to_game">Return to Game</div>
+			</div>
+		</div>
+                    
+		<div class="litebox" id="block_invalid">
+			<div class="inner">
+				<h3>Sorry!</h3>
+				<p>You've already used your block for this game.<br/>Happy Swapping!</p>
+				<div class="rb_lg" id="blockinvalid_to_game">Return to Game</div>
+			</div>
+		</div>
+
+                    
+		<div class="litebox" id="swap_ask">
+			<div class="inner">
+				<h3>Are you sure you<br/>want to swap?</h3>
+				<p>You have [x] swaps left for this round.</p>
+				<div class="rb_med" id="swap_yes">Yes</div>
+				<div class="rb_med" id="swap_nevermind">Nevermind</div>
+			</div>
+		</div>
+                    
+		<div class="litebox" id="swap_confirm">
+			<div class="inner">
+				<h3>The swap was successful!</h3>
+				<p>Good luck defending your stylish prize.</p>
+				<div class="rb_lg" id="swap_to_game">Return to Game</div>
+			</div>
+		</div>
+                    
+		<div class="litebox" id="swap_invalid">
+			<div class="inner">
+				<h3>Oh no! <span id="swap_invalid_username">[username]</span> has<br/>blocked your swap.</h3>
+				<p>Share the game to get another swap in this round, or try again next round.</p>
+				<div class="rb_lg" id="swapinvalid_to_game">Return to Game</div>
+			</div>
+		</div>
+
+                <div class="litebox" id="swap_invalid_number">
+			<div class="inner">
+				<h3>On no, you don't have any swaps available</h3>
+				<p>Share the game to get another swap in this round, or try again next round.</p>
+				<div class="rb_lg" id="swapinvalid_number_to_game">Return to Game</div>
+			</div>
+		</div>
+                
+		<div class="litebox" id="game_over">
+			<div class="inner">
+				<h3>Thank you for playing!</h3>
+				<p>You've won the <span id="game_over_product">[prize]</span>. What great style you have!  Click "claim" to give us your info and receive your prize.</p>
+				<a href="javascript:void(0)" class="rb_med" id="claim_prize">Claim</a>
+			</div>
+		</div>
+                
+
+                <!--product details -->    
+		<div class="litebox" id="product_detail">
+			<div class="inner">
+				<div class="product_image"></div>
+				<h3>Product Name</h3>
+				<p>
+                                  Product Description
+				</p>
+				<div class="rb_lg" id="return_to_game">Return to Game</div>
+			</div>
+		</div>
+
+	</div>
+
+        
+         
+
+  </div>  
+</div>
