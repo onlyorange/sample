@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-    <modules>
-        <store_shopslideshow>
-            <active>true</active>
-            <codePool>local</codePool>
-        </store_shopslideshow>
-    </modules>
-</config> 
